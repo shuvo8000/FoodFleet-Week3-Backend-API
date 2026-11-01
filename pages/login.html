@@ -1,0 +1,820 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<title>Login · FoodFleet</title>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#ff6b2c">
+<meta
+  name="description"
+  content="Log in to your FoodFleet account and manage your food orders."
+>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+<link
+  href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700;800&family=Playfair+Display:wght@600;700&display=swap"
+  rel="stylesheet"
+>
+
+<link rel="stylesheet" href="../css/style.css">
+<link rel="stylesheet" href="../css/components.css">
+<link rel="stylesheet" href="../css/responsive.css">
+
+<style>
+
+/* =========================
+   LOGIN PAGE
+========================= */
+
+.login-page{
+  min-height:100vh;
+  background:
+    radial-gradient(
+      circle at 0% 0%,
+      rgba(255,107,44,.075),
+      transparent 28%
+    ),
+    radial-gradient(
+      circle at 100% 100%,
+      rgba(255,180,90,.065),
+      transparent 30%
+    ),
+    #fff;
+}
+
+.auth-page{
+  min-height:100vh;
+  position:relative;
+  overflow:hidden;
+  display:flex;
+  flex-direction:column;
+}
+
+.auth-page::before{
+  content:"";
+  position:absolute;
+  width:520px;
+  height:520px;
+  right:-270px;
+  top:-260px;
+  border-radius:50%;
+  border:1px solid rgba(255,107,44,.10);
+  pointer-events:none;
+}
+
+.auth-page::after{
+  content:"";
+  position:absolute;
+  width:430px;
+  height:430px;
+  left:-230px;
+  bottom:-250px;
+  border-radius:50%;
+  background:rgba(255,107,44,.035);
+  pointer-events:none;
+}
+
+
+/* =========================
+   HEADER
+========================= */
+
+.auth-header{
+  position:relative;
+  z-index:3;
+  width:100%;
+  padding-top:34px;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  justify-content:center;
+}
+
+.auth-header .brand{
+  display:inline-flex;
+  align-items:center;
+  gap:9px;
+  text-decoration:none;
+}
+
+.auth-header .brand img{
+  width:34px;
+  height:34px;
+  object-fit:contain;
+}
+
+.auth-header .brand > span{
+  color:#1e1916;
+  font-size:16px;
+  font-weight:800;
+}
+
+.auth-header .brand > span > span{
+  color:#ff6b2c;
+}
+
+.auth-header .text-link{
+  margin-top:7px;
+  color:#403731;
+  font-size:12px;
+  text-decoration:none;
+  transition:color .2s ease;
+}
+
+.auth-header .text-link:hover{
+  color:#ff6b2c;
+}
+
+
+/* =========================
+   LOGIN AREA
+========================= */
+
+.auth-shell{
+  position:relative;
+  z-index:2;
+  flex:1;
+  width:100%;
+  box-sizing:border-box;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  padding:30px 20px 65px;
+}
+
+.auth-card{
+  position:relative;
+  width:100%;
+  max-width:500px;
+  padding:42px 44px 38px;
+  box-sizing:border-box;
+  border:1px solid rgba(40,25,15,.08);
+  border-radius:26px;
+  background:rgba(255,255,255,.97);
+  box-shadow:
+    0 30px 80px rgba(40,25,15,.12),
+    0 8px 24px rgba(40,25,15,.05);
+}
+
+.auth-card::before{
+  content:"";
+  position:absolute;
+  width:105px;
+  height:5px;
+  top:0;
+  left:44px;
+  border-radius:0 0 99px 99px;
+  background:#ff6b2c;
+}
+
+.auth-card .eyebrow{
+  display:block;
+  margin-bottom:12px;
+  color:#ff6b2c;
+  font-size:10px;
+  font-weight:800;
+  letter-spacing:1.7px;
+  text-transform:uppercase;
+}
+
+.auth-card h2{
+  margin:0 0 8px;
+  color:#171311;
+  font-family:"Playfair Display",Georgia,serif;
+  font-size:32px;
+  line-height:1.15;
+}
+
+.auth-card > p.login-intro{
+  max-width:390px;
+  margin:0 0 24px;
+  color:#81776f;
+  font-size:12px;
+  line-height:1.65;
+}
+
+
+/* =========================
+   WELCOME NOTE
+========================= */
+
+.login-note{
+  display:flex;
+  align-items:center;
+  gap:11px;
+  margin-bottom:22px;
+  padding:12px 13px;
+  border:1px solid #f1e4dc;
+  border-radius:13px;
+  background:#fff9f5;
+}
+
+.login-note > span{
+  display:grid;
+  place-items:center;
+  width:35px;
+  height:35px;
+  flex:0 0 35px;
+  border-radius:10px;
+  background:#fff0e8;
+  font-size:15px;
+}
+
+.login-note strong{
+  display:block;
+  margin-bottom:3px;
+  color:#3d342e;
+  font-size:11px;
+  font-weight:800;
+}
+
+.login-note small{
+  display:block;
+  color:#8a8079;
+  font-size:10px;
+  line-height:1.45;
+}
+
+
+/* =========================
+   FORM
+========================= */
+
+.auth-card label{
+  display:block;
+  margin-bottom:19px;
+  color:#403731;
+  font-size:12px;
+  font-weight:700;
+}
+
+.auth-card input{
+  display:block;
+  width:100%;
+  height:50px;
+  box-sizing:border-box;
+  margin-top:8px;
+  padding:0 15px;
+  border:1px solid #ded6cf;
+  border-radius:12px;
+  outline:none;
+  background:#fff;
+  color:#302923;
+  font-family:inherit;
+  font-size:13px;
+  font-weight:500;
+  transition:
+    border-color .2s ease,
+    box-shadow .2s ease,
+    background .2s ease;
+}
+
+.auth-card input:hover{
+  border-color:#d1c6bd;
+}
+
+.auth-card input:focus{
+  border-color:#ff9a72;
+  background:#fff;
+  box-shadow:0 0 0 4px rgba(255,107,44,.08);
+}
+
+.auth-card input::placeholder{
+  color:#aaa19a;
+}
+
+#login-message{
+  min-height:20px;
+  margin:0 0 7px;
+  color:#e05235;
+  font-size:11px;
+  line-height:1.4;
+}
+
+
+/* =========================
+   LOGIN BUTTON
+========================= */
+
+.auth-card .full-btn{
+  width:100%;
+  min-height:54px;
+  margin-top:5px;
+  border:0;
+  border-radius:13px;
+  font-size:13px;
+  font-weight:800;
+  box-shadow:0 12px 28px rgba(255,107,44,.19);
+  transition:
+    transform .2s ease,
+    box-shadow .2s ease,
+    background .2s ease;
+}
+
+.auth-card .full-btn:hover{
+  transform:translateY(-1px);
+  box-shadow:0 15px 32px rgba(255,107,44,.26);
+}
+
+
+/* =========================
+   TRUST BOXES
+========================= */
+
+.auth-trust{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:10px;
+  margin-top:22px;
+}
+
+.auth-trust div{
+  min-height:55px;
+  padding:9px 6px;
+  box-sizing:border-box;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  justify-content:center;
+  text-align:center;
+  border:1px solid rgba(40,25,15,.07);
+  border-radius:12px;
+  background:#fff;
+  color:#837870;
+  font-size:9px;
+  line-height:1.4;
+}
+
+.auth-trust strong{
+  display:block;
+  margin-bottom:3px;
+  color:#433a34;
+  font-size:10px;
+}
+
+
+/* =========================
+   CREATE ACCOUNT
+========================= */
+
+.auth-switch{
+  margin:21px 0 0;
+  text-align:center;
+  color:#837870;
+  font-size:12px;
+}
+
+.auth-switch a{
+  color:#ff6b2c;
+  font-weight:800;
+  text-decoration:none;
+}
+
+.auth-switch a:hover{
+  text-decoration:underline;
+}
+
+
+/* =========================
+   FOOTER
+========================= */
+
+.login-page + .footer{
+  position:relative;
+  z-index:2;
+}
+
+
+/* =========================
+   MOBILE
+========================= */
+
+@media(max-width:600px){
+
+  .auth-header{
+    padding-top:25px;
+  }
+
+  .auth-shell{
+    padding:25px 15px 40px;
+  }
+
+  .auth-card{
+    max-width:none;
+    padding:32px 22px 28px;
+    border-radius:22px;
+  }
+
+  .auth-card::before{
+    left:22px;
+    width:82px;
+  }
+
+  .auth-card h2{
+    font-size:28px;
+  }
+
+  .auth-card > p.login-intro{
+    margin-bottom:22px;
+  }
+
+  .login-note{
+    margin-bottom:20px;
+  }
+
+  .auth-trust{
+    gap:6px;
+  }
+
+  .auth-trust div{
+    min-height:52px;
+    padding:8px 4px;
+    font-size:8px;
+  }
+
+  .auth-trust strong{
+    font-size:9px;
+  }
+
+}
+
+@media(max-width:400px){
+
+  .auth-card{
+    padding:28px 17px 25px;
+  }
+
+  .auth-card::before{
+    left:17px;
+  }
+
+  .auth-card h2{
+    font-size:26px;
+  }
+
+  .login-note strong{
+    font-size:10px;
+  }
+
+  .login-note small{
+    font-size:9px;
+  }
+
+  .auth-trust div{
+    font-size:8px;
+  }
+
+}
+
+
+/* =========================
+   REDUCED MOTION
+========================= */
+
+@media(prefers-reduced-motion:reduce){
+
+  .auth-card input,
+  .auth-card .full-btn,
+  .auth-header .text-link{
+    transition:none;
+  }
+
+}
+
+</style>
+</head>
+
+<body data-page="login" class="login-page">
+
+<main>
+
+  <div class="auth-page">
+
+    <!-- =========================
+         AUTH HEADER
+    ========================= -->
+
+    <header class="auth-header">
+
+      <a
+        class="brand"
+        href="../index.html"
+        aria-label="FoodFleet Home">
+
+        <img
+          src="../assets/images/logo-mark.svg"
+          alt="FoodFleet logo">
+
+        <span>
+          Food<span>Fleet</span>
+        </span>
+
+      </a>
+
+      <a
+        href="../index.html"
+        class="text-link">
+
+        ← Back home
+
+      </a>
+
+    </header>
+
+
+    <!-- =========================
+         LOGIN CONTENT
+    ========================= -->
+
+    <div class="auth-shell">
+
+      <div class="auth-card">
+
+        <span class="eyebrow">
+          FoodFleet account
+        </span>
+
+        <h2>
+          Log in
+        </h2>
+
+        <p class="login-intro">
+          Welcome back to FoodFleet. Log in to continue your
+          food journey, track orders and enjoy your favorite meals.
+        </p>
+
+
+        <!-- WELCOME NOTE -->
+
+        <div class="login-note">
+
+          <span>
+            🍽️
+          </span>
+
+          <div>
+
+            <strong>
+              Ready for something delicious?
+            </strong>
+
+            <small>
+              Enter your FoodFleet account details below.
+            </small>
+
+          </div>
+
+        </div>
+
+
+        <!-- LOGIN FORM -->
+
+        <form id="login-form">
+
+          <label>
+
+            Mobile Number
+
+            <input
+              id="login-mobile"
+              type="tel"
+              inputmode="numeric"
+              autocomplete="tel"
+              pattern="01[3-9][0-9]{8}"
+              maxlength="11"
+              required
+              placeholder="01700000000">
+
+          </label>
+
+
+          <label>
+
+            Password
+
+            <input
+              id="login-password"
+              type="password"
+              autocomplete="current-password"
+              required
+              placeholder="Enter your password">
+
+          </label>
+
+
+          <div
+            id="login-message"
+            class="form-message"
+            aria-live="polite">
+          </div>
+
+
+          <button
+            class="primary-btn full-btn"
+            type="submit">
+
+            Log in
+
+          </button>
+
+        </form>
+
+
+        <!-- TRUST -->
+
+        <div class="auth-trust">
+
+          <div>
+
+            <strong>
+              🔒 Private
+            </strong>
+
+            Browser data
+
+          </div>
+
+          <div>
+
+            <strong>
+              ⚡ Quick
+            </strong>
+
+            Easy login
+
+          </div>
+
+          <div>
+
+            <strong>
+              🇧🇩 Local
+            </strong>
+
+            Made for BD
+
+          </div>
+
+        </div>
+
+
+        <!-- CREATE ACCOUNT -->
+
+        <p class="auth-switch">
+
+          New here?
+
+          <a href="register.html">
+            Create an account
+          </a>
+
+        </p>
+
+      </div>
+
+    </div>
+
+  </div>
+
+</main>
+
+
+<!-- =========================
+     FOOTER
+========================= -->
+
+<footer class="footer">
+
+  <div class="container footer-grid">
+
+    <div>
+
+      <a
+        class="brand footer-brand"
+        href="../index.html">
+
+        <img
+          src="../assets/images/logo-mark.svg"
+          alt="FoodFleet logo">
+
+        <span>
+          Food<span>Fleet</span>
+        </span>
+
+      </a>
+
+      <p>
+        Your neighborhood food,<br>
+        delivered with care.
+      </p>
+
+    </div>
+
+
+    <div>
+
+      <h4>
+        FoodFleet
+      </h4>
+
+      <a href="restaurants.html">
+        Restaurants
+      </a>
+
+      <a href="../index.html#offers">
+        Offers
+      </a>
+
+      <a href="orders.html">
+        Orders
+      </a>
+
+      <a href="profile.html">
+        Profile
+      </a>
+
+    </div>
+
+
+    <div>
+
+      <h4>
+        Help
+      </h4>
+
+      <a href="orders.html">
+        Order tracking
+      </a>
+
+      <a href="profile.html">
+        Profile
+      </a>
+
+      <a href="restaurants.html">
+        Delivery info
+      </a>
+
+    </div>
+
+
+    <div>
+
+      <h4>
+        We deliver in
+      </h4>
+
+      <p>
+        Dhaka<br>
+        Chattogram<br>
+        Sylhet<br>
+        Rajshahi<br>
+        Khulna<br>
+        Barishal<br>
+        Rangpur<br>
+        Mymensingh
+      </p>
+
+    </div>
+
+  </div>
+
+
+  <div class="footer-bottom">
+
+    <span>
+      © 2026 FoodFleet. Demo project.
+    </span>
+
+    <span>
+      Made for Bangladesh 🇧🇩
+    </span>
+
+  </div>
+
+</footer>
+
+
+<!-- =========================
+     GLOBAL UI
+========================= -->
+
+<div
+  id="toast-root"
+  class="toast-root">
+</div>
+
+<div id="ai-root"></div>
+
+
+<!-- =========================
+     JAVASCRIPT
+========================= -->
+
+<script src="../js/app.js"></script>
+<script src="../js/data.js"></script>
+<script src="../js/auth.js"></script>
+
+</body>
+</html>

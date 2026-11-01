@@ -1,0 +1,759 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#ff6b2c">
+<meta name="description" content="Discover restaurants and local food near you with FoodFleet.">
+<title>Restaurants · FoodFleet</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700;800&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet">
+
+<link rel="stylesheet" href="../css/style.css">
+<link rel="stylesheet" href="../css/components.css">
+<link rel="stylesheet" href="../css/responsive.css">
+
+<style>
+/* =========================
+   RESTAURANTS PAGE
+========================= */
+
+.page-hero{
+  position:relative;
+  overflow:hidden;
+  background:
+    radial-gradient(circle at 92% 15%,rgba(255,107,44,.10),transparent 28%),
+    radial-gradient(circle at 5% 95%,rgba(255,180,90,.08),transparent 25%);
+}
+
+.page-hero::before{
+  content:"";
+  position:absolute;
+  width:460px;
+  height:460px;
+  right:-180px;
+  top:-220px;
+  border-radius:50%;
+  border:1px solid rgba(255,107,44,.10);
+  pointer-events:none;
+}
+
+.page-hero::after{
+  content:"";
+  position:absolute;
+  width:220px;
+  height:220px;
+  left:-130px;
+  bottom:-150px;
+  border-radius:50%;
+  background:rgba(255,180,90,.07);
+  pointer-events:none;
+}
+
+.page-hero .container{
+  position:relative;
+  z-index:2;
+}
+
+.page-hero h1{
+  max-width:760px;
+  margin-bottom:14px;
+}
+
+.page-hero p{
+  max-width:680px;
+}
+
+.location-summary{
+  display:flex;
+  align-items:center;
+  gap:9px;
+  flex-wrap:wrap;
+  margin-top:20px;
+}
+
+.location-summary strong{
+  font-weight:800;
+}
+
+.text-link{
+  border:0;
+  background:none;
+  padding:0;
+  cursor:pointer;
+  font:inherit;
+  color:var(--primary,#ff6b2c);
+  font-weight:700;
+}
+
+.text-link:hover{
+  text-decoration:underline;
+}
+
+.wide-search{
+  display:flex;
+  align-items:center;
+  gap:12px;
+  margin-top:24px;
+  padding:9px;
+  border:1px solid rgba(40,25,15,.10);
+  border-radius:18px;
+  background:#fff;
+  box-shadow:
+    0 18px 45px rgba(40,25,15,.10),
+    0 5px 15px rgba(40,25,15,.05);
+}
+
+.wide-search > span{
+  padding-left:12px;
+  font-size:23px;
+  opacity:.55;
+}
+
+.wide-search input{
+  min-width:0;
+  flex:1;
+  border:0;
+  outline:0;
+  background:transparent;
+  font:inherit;
+  color:inherit;
+}
+
+.wide-search input::placeholder{
+  color:#9b918b;
+}
+
+.wide-search .primary-btn{
+  min-width:110px;
+}
+
+/* quick search */
+
+.quick-search{
+  display:flex;
+  align-items:center;
+  gap:10px;
+  flex-wrap:wrap;
+  margin-top:15px;
+}
+
+.quick-search-label{
+  font-size:13px;
+  font-weight:700;
+  color:#81766f;
+}
+
+.quick-search button{
+  border:1px solid rgba(40,25,15,.10);
+  background:#fff;
+  color:#514942;
+  border-radius:999px;
+  padding:7px 12px;
+  font:inherit;
+  font-size:13px;
+  font-weight:600;
+  cursor:pointer;
+  transition:.2s ease;
+}
+
+.quick-search button:hover{
+  border-color:rgba(255,107,44,.35);
+  color:#ff6b2c;
+  transform:translateY(-2px);
+}
+
+/* filters */
+
+.filter-row.large{
+  flex-wrap:wrap;
+}
+
+.filter-btn{
+  transition:
+    transform .2s ease,
+    background .2s ease,
+    border-color .2s ease,
+    color .2s ease;
+}
+
+.filter-btn:hover{
+  transform:translateY(-2px);
+}
+
+/* results */
+
+.restaurant-grid,
+.food-grid{
+  animation:resultsIn .45s ease both;
+}
+
+.restaurant-card,
+.food-card{
+  transition:
+    transform .25s ease,
+    box-shadow .25s ease;
+}
+
+.restaurant-card:hover,
+.food-card:hover{
+  transform:translateY(-5px);
+}
+
+.results-meta{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:15px;
+  margin:0 0 20px;
+  color:#756b64;
+  font-size:14px;
+}
+
+.results-meta strong{
+  color:#302a26;
+}
+
+.section-divider{
+  margin:70px 0 55px;
+  height:1px;
+  background:linear-gradient(
+    90deg,
+    transparent,
+    rgba(40,25,15,.12),
+    transparent
+  );
+}
+
+.section-subtitle{
+  max-width:600px;
+}
+
+.footer{
+  margin-top:40px;
+}
+
+@keyframes resultsIn{
+  from{
+    opacity:0;
+    transform:translateY(12px);
+  }
+  to{
+    opacity:1;
+    transform:translateY(0);
+  }
+}
+
+/* subtle section heading */
+
+.section-head{
+  position:relative;
+}
+
+.section-head h2{
+  margin-bottom:7px;
+}
+
+/* mobile */
+
+@media(max-width:700px){
+
+  .page-hero::before{
+    width:280px;
+    height:280px;
+    right:-140px;
+  }
+
+  .location-summary{
+    margin-top:18px;
+  }
+
+  .wide-search{
+    margin-top:20px;
+    border-radius:15px;
+  }
+
+  .wide-search .primary-btn{
+    min-width:auto;
+    padding-inline:15px;
+  }
+
+  .quick-search{
+    gap:7px;
+  }
+
+  .quick-search-label{
+    width:100%;
+  }
+
+  .section-divider{
+    margin:45px 0 38px;
+  }
+
+  .results-meta{
+    align-items:flex-start;
+    flex-direction:column;
+    gap:5px;
+  }
+}
+
+@media(max-width:480px){
+
+  .wide-search{
+    padding:7px;
+    gap:7px;
+  }
+
+  .wide-search > span{
+    display:none;
+  }
+
+  .wide-search input{
+    width:100%;
+    padding:8px 7px;
+  }
+
+  .wide-search .primary-btn{
+    padding:11px 13px;
+    border-radius:12px;
+  }
+}
+
+@media(prefers-reduced-motion:reduce){
+
+  .restaurant-grid,
+  .food-grid{
+    animation:none;
+  }
+
+  .filter-btn,
+  .restaurant-card,
+  .food-card,
+  .quick-search button{
+    transition:none;
+  }
+}
+</style>
+</head>
+
+<body data-page="restaurants">
+
+<!-- =========================
+     HEADER
+========================= -->
+
+<header class="site-header">
+  <div class="container header-inner">
+
+    <a class="brand" href="../index.html" aria-label="FoodFleet Home">
+      <img src="../assets/images/logo-mark.svg" alt="FoodFleet logo">
+      <span>Food<span>Fleet</span></span>
+    </a>
+
+    <nav class="main-nav" aria-label="Main navigation">
+      <a href="../index.html">Home</a>
+      <a href="restaurants.html" class="active">Restaurants</a>
+      <a href="orders.html">My Orders</a>
+    </nav>
+
+    <div class="header-actions">
+
+      <button
+        class="location-chip"
+        data-location-btn
+        type="button"
+        aria-label="Change delivery location">
+        <span>⌖</span>
+        <span data-city>Dhaka</span>
+      </button>
+
+      <a
+        class="cart-link"
+        href="cart.html"
+        aria-label="Shopping cart">
+        <span>🛒</span>
+        <span data-cart-count>0</span>
+      </a>
+
+      <a
+        class="profile-link"
+        href="profile.html"
+        data-profile-link
+        aria-label="Open profile">
+        SB
+      </a>
+
+      <button
+        class="mobile-menu-btn"
+        data-mobile-menu
+        type="button"
+        aria-label="Open menu"
+        aria-expanded="false">
+        ☰
+      </button>
+
+    </div>
+  </div>
+</header>
+
+
+<!-- =========================
+     MAIN
+========================= -->
+
+<main>
+
+  <!-- PAGE HERO -->
+
+  <section class="page-hero">
+    <div class="container">
+
+      <span class="eyebrow">
+        Explore the city
+      </span>
+
+      <h1>
+        Find your next favorite.
+      </h1>
+
+      <p>
+        From midnight biryani cravings to a quick lunch,
+        discover local kitchens around you.
+      </p>
+
+      <div class="location-summary">
+        <span>📍 Delivering to</span>
+
+        <strong data-city>Dhaka</strong>
+
+        <button
+          type="button"
+          class="text-link"
+          data-location-btn>
+          Change
+        </button>
+      </div>
+
+      <!-- SEARCH -->
+
+      <div class="wide-search">
+
+        <span aria-hidden="true">⌕</span>
+
+        <input
+          id="restaurant-search"
+          type="search"
+          placeholder="Search restaurants, dishes or cuisines..."
+          aria-label="Search restaurants, dishes or cuisines"
+          autocomplete="off">
+
+        <button
+          id="restaurant-search-btn"
+          class="primary-btn"
+          type="button">
+          Search
+        </button>
+
+      </div>
+
+      <!-- QUICK SEARCH -->
+
+      <div class="quick-search" aria-label="Popular searches">
+
+        <span class="quick-search-label">
+          Popular:
+        </span>
+
+        <button type="button" data-quick-search="Biryani">
+          🍛 Biryani
+        </button>
+
+        <button type="button" data-quick-search="Burger">
+          🍔 Burger
+        </button>
+
+        <button type="button" data-quick-search="Pizza">
+          🍕 Pizza
+        </button>
+
+        <button type="button" data-quick-search="Fuchka">
+          🥟 Fuchka
+        </button>
+
+        <button type="button" data-quick-search="Chinese">
+          🥡 Chinese
+        </button>
+
+      </div>
+
+    </div>
+  </section>
+
+
+  <!-- RESTAURANTS + FOOD -->
+
+  <section class="section">
+    <div class="container">
+
+      <!-- RESTAURANT HEADER -->
+
+      <div class="section-head">
+
+        <div>
+          <span class="eyebrow">
+            Around you
+          </span>
+
+          <h2>
+            Restaurants
+          </h2>
+        </div>
+
+        <div
+          class="filter-row large"
+          aria-label="Restaurant filters">
+
+          <button
+            class="filter-btn active"
+            data-restaurant-filter="all"
+            type="button">
+            All
+          </button>
+
+          <button
+            class="filter-btn"
+            data-restaurant-filter="top"
+            type="button">
+            Top Rated
+          </button>
+
+          <button
+            class="filter-btn"
+            data-restaurant-filter="fast"
+            type="button">
+            Fast Delivery
+          </button>
+
+        </div>
+
+      </div>
+
+
+      <!-- RESULT META -->
+
+      <div class="results-meta">
+        <span>
+          Restaurants available in
+          <strong data-city>Dhaka</strong>
+        </span>
+
+        <span>
+          Fresh picks for you
+        </span>
+      </div>
+
+
+      <!-- RESTAURANT RESULTS -->
+
+      <div
+        id="restaurant-results"
+        class="restaurant-grid">
+      </div>
+
+
+      <div class="section-divider"></div>
+
+
+      <!-- FOOD HEADER -->
+
+      <div class="section-head">
+
+        <div>
+
+          <span class="eyebrow">
+            Browse dishes
+          </span>
+
+          <h2 id="food-results-title">
+            Something delicious
+          </h2>
+
+          <p class="section-subtitle">
+            Explore dishes from restaurants available
+            in your selected location.
+          </p>
+
+        </div>
+
+      </div>
+
+
+      <!-- FOOD RESULTS -->
+
+      <div
+        id="all-food-grid"
+        class="food-grid">
+      </div>
+
+    </div>
+  </section>
+
+</main>
+
+
+<!-- =========================
+     FOOTER
+========================= -->
+
+<footer class="footer">
+
+  <div class="container footer-grid">
+
+    <div>
+
+      <a
+        class="brand footer-brand"
+        href="../index.html">
+
+        <img
+          src="../assets/images/logo-mark.svg"
+          alt="">
+
+        <span>
+          Food<span>Fleet</span>
+        </span>
+
+      </a>
+
+      <p>
+        Your neighborhood food,<br>
+        delivered with care.
+      </p>
+
+    </div>
+
+
+    <div>
+
+      <h4>
+        FoodFleet
+      </h4>
+
+      <a href="restaurants.html">
+        Restaurants
+      </a>
+
+      <a href="../index.html#offers">
+        Offers
+      </a>
+
+      <a href="orders.html">
+        Orders
+      </a>
+
+    </div>
+
+
+    <div>
+
+      <h4>
+        Help
+      </h4>
+
+      <a href="orders.html">
+        Order tracking
+      </a>
+
+      <a href="profile.html">
+        Profile
+      </a>
+
+      <a href="restaurants.html">
+        Delivery info
+      </a>
+
+    </div>
+
+
+    <div>
+
+      <h4>
+        We deliver in
+      </h4>
+
+      <p>
+        Dhaka<br>
+        Chattogram<br>
+        Sylhet<br>
+        Rajshahi<br>
+        Khulna<br>
+        Barishal<br>
+        Rangpur<br>
+        Mymensingh
+      </p>
+
+    </div>
+
+  </div>
+
+
+  <div class="container footer-bottom">
+
+    <span>
+      © 2026 FoodFleet. Demo project.
+    </span>
+
+    <span>
+      Made for Bangladesh 🇧🇩
+    </span>
+
+  </div>
+
+</footer>
+
+
+<!-- =========================
+     GLOBAL UI
+========================= -->
+
+<div
+  id="toast-root"
+  class="toast-root">
+</div>
+
+<div id="ai-root"></div>
+
+
+<!-- =========================
+     JAVASCRIPT
+========================= -->
+
+<script src="../js/app.js"></script>
+<script src="../js/data.js"></script>
+<script src="../js/restaurant.js"></script>
+<script src="../js/ai.js"></script>
+
+<script>
+/* Quick search buttons */
+
+document.querySelectorAll("[data-quick-search]").forEach(button => {
+  button.addEventListener("click", () => {
+    const input = document.querySelector("#restaurant-search");
+    if (!input) return;
+
+    input.value = button.dataset.quickSearch;
+    input.focus();
+
+    const searchButton = document.querySelector("#restaurant-search-btn");
+
+    if (searchButton) {
+      searchButton.click();
+    }
+  });
+});
+</script>
+
+</body>
+</html>

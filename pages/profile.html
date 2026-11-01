@@ -1,0 +1,1266 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>Profile · FoodFleet</title>
+  <meta name="description" content="Manage your FoodFleet profile, delivery details and account.">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+  <link
+    href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800&display=swap"
+    rel="stylesheet"
+  >
+
+  <link rel="stylesheet" href="../css/style.css">
+  <link rel="stylesheet" href="../css/components.css">
+  <link rel="stylesheet" href="../css/responsive.css">
+
+  <style>
+    .profile-page{
+      background:
+        radial-gradient(circle at 5% 12%,rgba(255,107,53,.07),transparent 25%),
+        radial-gradient(circle at 95% 18%,rgba(20,184,166,.06),transparent 25%),
+        #fff;
+      font-family:"Outfit",sans-serif;
+    }
+
+    .profile-page .header{
+      background:rgba(255,255,255,.94);
+      backdrop-filter:blur(14px);
+      -webkit-backdrop-filter:blur(14px);
+      border-bottom:1px solid #eeeeee;
+    }
+
+    .profile-page .header-inner{
+      min-height:72px;
+    }
+
+    .profile-page .nav{
+      display:flex;
+      align-items:center;
+      gap:5px;
+      padding:5px;
+      border:1px solid #eeeeee;
+      border-radius:14px;
+      background:#fafafa;
+    }
+
+    .profile-page .nav a{
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      gap:7px;
+      min-height:38px;
+      padding:0 14px;
+      border-radius:10px;
+      color:#666;
+      font-size:13px;
+      font-weight:600;
+      text-decoration:none;
+      transition:.2s ease;
+    }
+
+    .profile-page .nav a:hover{
+      color:#222;
+      background:#fff;
+      transform:translateY(-1px);
+    }
+
+    .profile-page .nav-icon{
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      width:18px;
+      height:18px;
+      font-size:14px;
+    }
+
+    .profile-page .header-actions{
+      gap:8px;
+    }
+
+    .profile-main{
+      padding:46px 0 80px;
+    }
+
+    .profile-wrap{
+      width:min(100%,1000px);
+      margin:0 auto;
+    }
+
+    .profile-heading{
+      margin-bottom:28px;
+    }
+
+    .profile-heading .eyebrow{
+      margin-bottom:8px;
+    }
+
+    .profile-heading h1{
+      margin:0 0 8px;
+      font-size:clamp(32px,4vw,46px);
+      line-height:1.05;
+      letter-spacing:-1.5px;
+    }
+
+    .profile-heading p{
+      margin:0;
+      color:#777;
+      font-size:15px;
+    }
+
+    /* =========================
+       PROFILE SUMMARY
+    ========================= */
+
+    .profile-card{
+      position:relative;
+      overflow:hidden;
+      display:flex !important;
+      align-items:center !important;
+      gap:22px !important;
+      min-height:125px;
+      padding:26px 28px;
+      margin-bottom:34px;
+      border:1px solid #ececec;
+      border-radius:24px;
+      background:#fff;
+      box-shadow:0 12px 35px rgba(20,20,20,.055);
+    }
+
+    .profile-card::after{
+      content:"";
+      position:absolute;
+      width:170px;
+      height:170px;
+      right:-70px;
+      top:-75px;
+      border-radius:50%;
+      background:#fff4ee;
+      pointer-events:none;
+    }
+
+    .profile-card-photo,
+    .profile-card-avatar{
+      position:relative;
+      z-index:2;
+      flex:0 0 82px;
+      width:82px;
+      height:82px;
+      overflow:hidden;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      border-radius:50%;
+      background:linear-gradient(135deg,#ff7b47,#ff5427);
+      color:#fff;
+      font-size:29px;
+      font-weight:800;
+      box-shadow:0 10px 25px rgba(255,107,53,.22);
+    }
+
+    .profile-card-photo{
+      object-fit:cover;
+    }
+
+    .profile-card-info{
+      position:relative;
+      z-index:2;
+      flex:1;
+      min-width:0;
+    }
+
+    .profile-card-info h2{
+      margin:0 0 5px;
+      color:#171717;
+      font-size:25px;
+      line-height:1.1;
+    }
+
+    .profile-card-info .profile-mobile{
+      margin:0 0 11px;
+      color:#777;
+      font-size:14px;
+    }
+
+    .profile-meta{
+      display:flex !important;
+      flex-wrap:wrap !important;
+      gap:8px !important;
+    }
+
+    .profile-meta span{
+      display:inline-flex !important;
+      align-items:center;
+      min-height:29px;
+      padding:5px 10px;
+      border-radius:999px;
+      background:#f7f7f7;
+      color:#555;
+      font-size:12px;
+      font-weight:600;
+      white-space:nowrap;
+    }
+
+    .profile-description{
+      margin:10px 0 0;
+      color:#999;
+      font-size:12px;
+      line-height:1.5;
+    }
+
+    /* =========================
+       SECTIONS
+    ========================= */
+
+    .profile-section{
+      margin-top:30px;
+    }
+
+    .profile-section-heading{
+      margin-bottom:16px;
+    }
+
+    .profile-section-heading .eyebrow{
+      margin-bottom:5px;
+    }
+
+    .profile-section-heading h2{
+      margin:0;
+      font-size:23px;
+      line-height:1.2;
+    }
+
+    .profile-edit-card{
+      padding:30px;
+      border:1px solid #ececec;
+      border-radius:24px;
+      background:#fff;
+      box-shadow:0 10px 32px rgba(20,20,20,.045);
+    }
+
+    /* =========================
+       PHOTO EDITOR
+    ========================= */
+
+    .profile-photo-editor{
+      display:flex;
+      align-items:center;
+      gap:20px;
+      padding-bottom:28px;
+      margin-bottom:28px;
+      border-bottom:1px solid #eee;
+    }
+
+    .profile-photo-preview{
+      position:relative;
+      width:82px;
+      height:82px;
+      flex:0 0 82px;
+      overflow:hidden;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      border-radius:50%;
+      background:linear-gradient(135deg,#ff7b47,#ff5427);
+      color:#fff;
+      font-size:29px;
+      font-weight:800;
+      box-shadow:0 9px 22px rgba(255,107,53,.18);
+    }
+
+    .profile-photo-preview.has-photo{
+      background:#f5eee9;
+    }
+
+    .profile-photo-preview .profile-uploaded-photo{
+      display:block;
+      width:100%;
+      height:100%;
+      object-fit:cover;
+      border-radius:50%;
+    }
+
+    .profile-photo-preview .profile-initials{
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      width:100%;
+      height:100%;
+      border-radius:50%;
+      background:linear-gradient(135deg,#ff7b47,#ff5427);
+      color:#fff;
+      font-size:28px;
+      font-weight:800;
+    }
+
+    .photo-actions{
+      display:flex;
+      align-items:center;
+      flex-wrap:wrap;
+      gap:9px;
+    }
+
+    .photo-help{
+      margin:9px 0 0;
+      color:#999;
+      font-size:12px;
+    }
+
+    /* =========================
+       FORM
+    ========================= */
+
+    .profile-form{
+      display:grid;
+      grid-template-columns:minmax(0,1fr) minmax(0,1fr);
+      gap:20px;
+    }
+
+    .profile-form .form-group{
+      min-width:0;
+    }
+
+    .profile-form .form-group.full{
+      grid-column:1/-1;
+    }
+
+    .profile-form label{
+      display:block;
+      margin-bottom:8px;
+      color:#333;
+      font-size:13px;
+      font-weight:700;
+    }
+
+    .profile-form input,
+    .profile-form select,
+    .profile-form textarea{
+      width:100%;
+      box-sizing:border-box;
+      min-height:48px;
+      padding:12px 14px;
+      border:1px solid #ddd;
+      border-radius:12px;
+      outline:none;
+      background:#fff;
+      color:#222;
+      font-family:"Outfit",sans-serif;
+      font-size:14px;
+      transition:border-color .2s ease,box-shadow .2s ease,background .2s ease;
+    }
+
+    .profile-form textarea{
+      min-height:108px;
+      resize:vertical;
+    }
+
+    .profile-form input:focus,
+    .profile-form select:focus,
+    .profile-form textarea:focus{
+      border-color:#ff6b35;
+      box-shadow:0 0 0 4px rgba(255,107,53,.10);
+    }
+
+    .profile-form input:disabled{
+      background:#f7f7f7;
+      color:#999;
+      cursor:not-allowed;
+    }
+
+    .profile-save-row{
+      grid-column:1/-1;
+      display:flex;
+      justify-content:flex-end;
+      padding-top:2px;
+    }
+
+    /* =========================
+       BUTTONS
+    ========================= */
+
+    .profile-page .btn{
+      min-height:46px;
+      padding:0 18px;
+      border-radius:12px;
+      border:1px solid #e4e4e4;
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      gap:7px;
+      font-family:"Outfit",sans-serif;
+      font-size:14px;
+      font-weight:700;
+      line-height:1;
+      cursor:pointer;
+      text-decoration:none;
+      transition:transform .2s ease,box-shadow .2s ease,background .2s ease,border-color .2s ease;
+    }
+
+    .profile-page .btn:hover{
+      transform:translateY(-1px);
+    }
+
+    .profile-page .btn-primary{
+      background:#ff6b35;
+      border-color:#ff6b35;
+      color:#fff;
+      box-shadow:0 8px 20px rgba(255,107,53,.18);
+    }
+
+    .profile-page .btn-primary:hover{
+      background:#f45d27;
+      border-color:#f45d27;
+      box-shadow:0 10px 24px rgba(255,107,53,.23);
+    }
+
+    .profile-page .btn-secondary{
+      background:#fff;
+      border-color:#e3e3e3;
+      color:#333;
+    }
+
+    .profile-page .btn-secondary:hover{
+      background:#fafafa;
+      border-color:#d4d4d4;
+      box-shadow:0 7px 18px rgba(20,20,20,.06);
+    }
+
+    .profile-page label.btn{
+      cursor:pointer;
+    }
+
+    #profile-save{
+      min-width:135px;
+    }
+
+    /* =========================
+       ACCOUNT
+    ========================= */
+
+    .account-card{
+      padding:24px;
+      border:1px solid #f0dfda;
+      border-radius:22px;
+      background:#fffaf8;
+    }
+
+    .account-card h3{
+      margin:0 0 16px;
+      font-size:17px;
+    }
+
+    .account-actions{
+      display:grid;
+      grid-template-columns:1fr 1fr;
+      gap:12px;
+    }
+
+    .account-actions .btn{
+      width:100%;
+    }
+
+    .danger-btn{
+      color:#e54826 !important;
+      border-color:#ffd0c5 !important;
+      background:#fff !important;
+    }
+
+    .danger-btn:hover{
+      background:#fff7f5 !important;
+    }
+
+    .account-note{
+      margin:14px 0 0;
+      color:#999;
+      font-size:12px;
+      line-height:1.6;
+    }
+
+    /* =========================
+       SHORTCUTS
+    ========================= */
+
+    .profile-shortcuts{
+      display:grid;
+      grid-template-columns:1fr 1fr;
+      gap:14px;
+      margin-top:28px;
+    }
+
+    .profile-shortcut{
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:15px;
+      padding:17px 18px;
+      border:1px solid #eaeaea;
+      border-radius:16px;
+      background:#fff;
+      color:#222;
+      text-decoration:none;
+      font-size:14px;
+      font-weight:700;
+      transition:transform .2s ease,box-shadow .2s ease,border-color .2s ease;
+    }
+
+    .profile-shortcut:hover{
+      transform:translateY(-2px);
+      border-color:#ddd;
+      box-shadow:0 8px 24px rgba(20,20,20,.07);
+    }
+
+    .profile-shortcut span:last-child{
+      color:#ff6b35;
+      font-size:18px;
+    }
+
+    /* =========================
+       MOBILE
+    ========================= */
+
+    @media(max-width:850px){
+
+      .profile-page .nav{
+        gap:2px;
+      }
+
+      .profile-page .nav a{
+        padding:0 10px;
+        font-size:12px;
+      }
+
+      .profile-page .nav-icon{
+        display:none;
+      }
+    }
+
+    @media(max-width:700px){
+
+      .profile-main{
+        padding:30px 0 55px;
+      }
+
+      .profile-page .nav{
+        display:none;
+      }
+
+      .profile-card{
+        align-items:flex-start !important;
+        padding:22px;
+      }
+
+      .profile-edit-card{
+        padding:22px;
+      }
+
+      .profile-form{
+        grid-template-columns:1fr;
+      }
+
+      .profile-form .form-group.full{
+        grid-column:auto;
+      }
+
+      .profile-save-row{
+        grid-column:auto;
+        justify-content:stretch;
+      }
+
+      #profile-save{
+        width:100%;
+      }
+
+      .account-actions{
+        grid-template-columns:1fr;
+      }
+
+      .profile-shortcuts{
+        grid-template-columns:1fr;
+      }
+    }
+
+    @media(max-width:520px){
+
+      .profile-card{
+        flex-direction:column;
+        gap:16px !important;
+      }
+
+      .profile-card-photo,
+      .profile-card-avatar{
+        width:72px !important;
+        height:72px !important;
+        flex-basis:72px !important;
+      }
+
+      .profile-card-info{
+        width:100%;
+      }
+
+      .profile-photo-editor{
+        align-items:flex-start;
+      }
+
+      .profile-photo-preview{
+        width:70px;
+        height:70px;
+        flex-basis:70px;
+      }
+
+      .profile-edit-card{
+        padding:18px;
+      }
+
+      .profile-meta{
+        gap:6px !important;
+      }
+
+      .profile-meta span{
+        font-size:11px !important;
+      }
+    }
+
+    @media(max-width:380px){
+
+      .profile-heading h1{
+        font-size:30px;
+      }
+
+      .profile-card{
+        padding:18px;
+      }
+
+      .profile-edit-card{
+        padding:16px;
+      }
+
+      .photo-actions{
+        flex-direction:column;
+        align-items:flex-start;
+      }
+
+      .photo-actions .btn{
+        width:100%;
+      }
+    }
+  </style>
+</head>
+
+<body data-page="profile" class="profile-page">
+
+  <!-- HEADER -->
+
+  <header class="header">
+
+    <div class="container header-inner">
+
+      <a href="../index.html" class="brand">
+
+        <img
+          src="../assets/images/logo-mark.svg"
+          alt="FoodFleet logo"
+        >
+
+        <span>
+          Food<span>Fleet</span>
+        </span>
+
+      </a>
+
+
+      <nav class="nav" id="main-nav">
+
+        <a href="../index.html">
+          <span class="nav-icon">⌂</span>
+          <span>Home</span>
+        </a>
+
+        <a href="restaurants.html">
+          <span class="nav-icon">🍽</span>
+          <span>Restaurants</span>
+        </a>
+
+        <a href="orders.html">
+          <span class="nav-icon">▣</span>
+          <span>My Orders</span>
+        </a>
+
+      </nav>
+
+
+      <div class="header-actions">
+
+        <button
+          class="location-chip"
+          type="button"
+          data-location-open
+        >
+
+          <span>📍</span>
+
+          <span data-current-city>
+            Dhaka Division
+          </span>
+
+          <span>⌄</span>
+
+        </button>
+
+
+        <a
+          href="cart.html"
+          class="cart-link"
+          title="Cart"
+        >
+
+          <span>🛒</span>
+
+          <span
+            class="cart-count"
+            data-cart-count
+          >
+            0
+          </span>
+
+        </a>
+
+
+        <a
+          href="profile.html"
+          class="profile-link active"
+          data-profile-link
+          title="Profile"
+        >
+
+          <span
+            class="profile-avatar"
+            data-profile-avatar
+          >
+            S
+          </span>
+
+          <span data-profile-name>
+            Shuvo
+          </span>
+
+        </a>
+
+
+        <button
+          class="mobile-menu-btn"
+          type="button"
+          data-mobile-menu
+          aria-label="Open menu"
+        >
+          ☰
+        </button>
+
+      </div>
+
+    </div>
+
+  </header>
+
+
+  <!-- LOCATION MODAL -->
+
+  <div
+    class="modal-overlay"
+    data-location-modal
+    hidden
+  >
+
+    <div class="modal location-modal">
+
+      <button
+        class="modal-close"
+        type="button"
+        data-location-close
+        aria-label="Close"
+      >
+        ×
+      </button>
+
+      <div class="modal-icon">
+        📍
+      </div>
+
+      <h3>
+        Choose your location
+      </h3>
+
+      <p>
+        Select your division to see available food options.
+      </p>
+
+      <div class="form-group">
+
+        <label for="location-division">
+          Division
+        </label>
+
+        <select
+          id="location-division"
+          data-location-division
+        ></select>
+
+      </div>
+
+      <button
+        class="btn btn-primary btn-full"
+        type="button"
+        data-location-save
+      >
+        Save location
+      </button>
+
+    </div>
+
+  </div>
+
+
+  <!-- MAIN -->
+
+  <main class="profile-main">
+
+    <div class="container profile-wrap">
+
+      <div class="profile-heading">
+
+        <div class="eyebrow">
+          PERSONAL ACCOUNT
+        </div>
+
+        <h1>
+          Your profile
+        </h1>
+
+        <p>
+          Manage your personal information and FoodFleet preferences.
+        </p>
+
+      </div>
+
+
+      <!-- PROFILE SUMMARY -->
+
+      <section
+        class="profile-card"
+        id="profile-card"
+      ></section>
+
+
+      <!-- PERSONAL DETAILS -->
+
+      <section class="profile-section">
+
+        <div class="profile-section-heading">
+
+          <div class="eyebrow">
+            PERSONAL DETAILS
+          </div>
+
+          <h2>
+            Edit profile
+          </h2>
+
+        </div>
+
+
+        <div class="profile-edit-card">
+
+          <!-- PHOTO -->
+
+          <div class="profile-photo-editor">
+
+            <div
+              class="profile-photo-preview"
+              id="profile-photo"
+            >
+              <span class="profile-initials">
+                S
+              </span>
+            </div>
+
+
+            <div>
+
+              <div class="photo-actions">
+
+                <label
+                  class="btn btn-secondary"
+                  for="profile-photo-input"
+                >
+                  📷 Change photo
+                </label>
+
+
+                <button
+                  type="button"
+                  class="btn btn-secondary"
+                  id="remove-photo-btn"
+                >
+                  Remove
+                </button>
+
+              </div>
+
+
+              <p class="photo-help">
+                JPG, PNG or WebP · Maximum 2MB
+              </p>
+
+
+              <input
+                type="file"
+                id="profile-photo-input"
+                accept="image/jpeg,image/png,image/webp"
+                hidden
+              >
+
+            </div>
+
+          </div>
+
+
+          <!-- FORM -->
+
+          <form
+            id="profile-form"
+            class="profile-form"
+          >
+
+            <div class="form-group">
+
+              <label for="profile-name">
+                Full Name
+              </label>
+
+              <input
+                type="text"
+                id="profile-name"
+                placeholder="Enter your full name"
+                autocomplete="name"
+                required
+              >
+
+            </div>
+
+
+            <div class="form-group">
+
+              <label for="profile-mobile">
+                Mobile Number
+              </label>
+
+              <input
+                type="tel"
+                id="profile-mobile"
+                placeholder="01XXXXXXXXX"
+                autocomplete="tel"
+                inputmode="numeric"
+                required
+              >
+
+            </div>
+
+
+            <div class="form-group">
+
+              <label for="profile-division">
+                Division
+              </label>
+
+              <select
+                id="profile-division"
+                required
+              >
+
+                <option value="">
+                  Select division
+                </option>
+
+              </select>
+
+            </div>
+
+
+            <div class="form-group full">
+
+              <label for="profile-address">
+                Delivery Address
+              </label>
+
+              <textarea
+                id="profile-address"
+                placeholder="Enter your delivery address"
+                required
+              ></textarea>
+
+            </div>
+
+
+            <div class="profile-save-row">
+
+              <button
+                type="submit"
+                class="btn btn-primary"
+                id="profile-save"
+              >
+                Save changes
+              </button>
+
+            </div>
+
+          </form>
+
+        </div>
+
+      </section>
+
+
+      <!-- ACCOUNT CONTROLS -->
+
+      <section class="profile-section">
+
+        <div class="profile-section-heading">
+
+          <div class="eyebrow">
+            ACCOUNT
+          </div>
+
+          <h2>
+            Account controls
+          </h2>
+
+        </div>
+
+
+        <div class="account-card">
+
+          <h3>
+            Manage your FoodFleet account
+          </h3>
+
+
+          <div class="account-actions">
+
+            <button
+              type="button"
+              class="btn btn-secondary"
+              id="logout-btn"
+            >
+              Log out
+            </button>
+
+
+            <button
+              type="button"
+              class="btn btn-secondary danger-btn"
+              id="clear-data-btn"
+            >
+              Clear local data
+            </button>
+
+          </div>
+
+
+          <p class="account-note">
+            Clearing data removes demo users, cart, orders,
+            favorites, promo data and selected location
+            from this browser.
+          </p>
+
+        </div>
+
+      </section>
+
+
+      <!-- SHORTCUTS -->
+
+      <div class="profile-shortcuts">
+
+        <a
+          href="orders.html"
+          class="profile-shortcut"
+        >
+
+          <span>
+            📦 &nbsp; View my orders
+          </span>
+
+          <span>
+            →
+          </span>
+
+        </a>
+
+
+        <a
+          href="restaurants.html"
+          class="profile-shortcut"
+        >
+
+          <span>
+            🍽️ &nbsp; Explore restaurants
+          </span>
+
+          <span>
+            →
+          </span>
+
+        </a>
+
+      </div>
+
+    </div>
+
+  </main>
+
+
+  <!-- FOOTER -->
+
+  <footer class="footer">
+
+    <div class="container footer-grid">
+
+      <div class="footer-brand">
+
+        <a
+          href="../index.html"
+          class="brand"
+        >
+
+          <img
+            src="../assets/images/logo-mark.svg"
+            alt="FoodFleet logo"
+          >
+
+          <span>
+            Food<span>Fleet</span>
+          </span>
+
+        </a>
+
+        <p>
+          Good food. Good mood.
+          <br>
+          Your local food delivery companion.
+        </p>
+
+      </div>
+
+
+      <div class="footer-col">
+
+        <h4>
+          Explore
+        </h4>
+
+        <a href="../index.html">
+          Home
+        </a>
+
+        <a href="restaurants.html">
+          Restaurants
+        </a>
+
+        <a href="orders.html">
+          My Orders
+        </a>
+
+        <a href="cart.html">
+          Cart
+        </a>
+
+      </div>
+
+
+      <div class="footer-col">
+
+        <h4>
+          Account
+        </h4>
+
+        <a href="profile.html">
+          Profile
+        </a>
+
+        <a href="login.html">
+          Login
+        </a>
+
+        <a href="register.html">
+          Create account
+        </a>
+
+      </div>
+
+
+      <div class="footer-col">
+
+        <h4>
+          FoodFleet
+        </h4>
+
+        <span>
+          🇧🇩 Made for Bangladesh
+        </span>
+
+        <span>
+          ⚡ Fast delivery
+        </span>
+
+        <span>
+          🤖 FoodFleet AI
+        </span>
+
+      </div>
+
+    </div>
+
+
+    <div class="container footer-bottom">
+
+      <span>
+        © 2026 FoodFleet. All rights reserved.
+      </span>
+
+      <span>
+        Good food. Good mood. ❤️
+      </span>
+
+    </div>
+
+  </footer>
+
+
+  <!-- TOAST -->
+
+  <div
+    class="toast"
+    id="toast"
+    role="status"
+    aria-live="polite"
+  ></div>
+
+
+  <!-- AI -->
+
+  <div id="ai-root"></div>
+
+
+  <!-- SCRIPTS -->
+
+  <script src="../js/app.js"></script>
+  <script src="../js/data.js"></script>
+  <script src="../js/profile.js"></script>
+  <script src="../js/ai.js"></script>
+
+</body>
+</html>

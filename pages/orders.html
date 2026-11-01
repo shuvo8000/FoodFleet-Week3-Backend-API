@@ -1,0 +1,1631 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+  <meta charset="UTF-8">
+
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0">
+
+  <meta name="theme-color" content="#f05a35">
+
+  <title>My Orders · FoodFleet</title>
+
+  <link rel="stylesheet" href="../css/style.css">
+  <link rel="stylesheet" href="../css/components.css">
+  <link rel="stylesheet" href="../css/responsive.css">
+
+  <style>
+
+/* =========================================================
+   ORDERS PAGE
+========================================================= */
+
+.orders-page{
+  min-height:100vh;
+  background:
+    radial-gradient(circle at 94% 18%,rgba(255,107,44,.08) 0 150px,transparent 151px),
+    radial-gradient(circle at 4% 72%,rgba(255,175,130,.08) 0 145px,transparent 146px),
+    #fffaf7;
+}
+
+
+/* =========================================================
+   HERO
+========================================================= */
+
+.orders-hero{
+  position:relative;
+  min-height:205px;
+  padding:30px 0 20px;
+  overflow:hidden;
+  background:
+    radial-gradient(circle at 68% 32%,rgba(255,107,44,.12),transparent 190px),
+    linear-gradient(110deg,#fffdfb 0%,#fff8f3 55%,#ffede3 100%);
+}
+
+.orders-hero::before{
+  content:"";
+  position:absolute;
+  width:300px;
+  height:300px;
+  right:-105px;
+  top:-95px;
+  border-radius:50%;
+  background:rgba(255,221,204,.55);
+  pointer-events:none;
+}
+
+.orders-hero::after{
+  content:"";
+  position:absolute;
+  width:145px;
+  height:145px;
+  left:-75px;
+  bottom:-95px;
+  border-radius:50%;
+  background:rgba(255,226,210,.65);
+  pointer-events:none;
+}
+
+.orders-hero-inner{
+  position:relative;
+  z-index:2;
+  min-height:185px;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:25px;
+}
+
+
+/* =========================================================
+   HERO TEXT
+========================================================= */
+
+.orders-heading{
+  position:relative;
+  z-index:5;
+  max-width:650px;
+}
+
+.orders-heading .eyebrow{
+  color:#ff642d;
+  font-size:10px;
+  font-weight:900;
+  letter-spacing:1.7px;
+}
+
+.orders-heading .eyebrow::before{
+  content:"";
+  display:inline-block;
+  width:17px;
+  height:2px;
+  margin-right:8px;
+  vertical-align:middle;
+  background:#ff642d;
+}
+
+.orders-heading h1{
+  margin:10px 0 7px;
+  color:#171412;
+  font-family:"Playfair Display",Georgia,"Times New Roman",serif;
+  font-size:clamp(48px,5vw,64px);
+  line-height:.92;
+  letter-spacing:-3.5px;
+}
+
+.orders-heading h1 span{
+  color:#ff642d;
+}
+
+.orders-heading p{
+  max-width:560px;
+  margin:0;
+  color:#756c66;
+  font-size:12px;
+  line-height:1.65;
+}
+
+
+/* =========================================================
+   HERO ART
+========================================================= */
+
+.orders-hero-art{
+  position:absolute;
+  left:56%;
+  top:0;
+  width:290px;
+  height:190px;
+  z-index:3;
+  pointer-events:none;
+}
+
+
+/* =========================================================
+   INLINE FOOD DELIVERY BAG
+========================================================= */
+
+.orders-bag{
+  position:absolute;
+  left:50%;
+  bottom:0;
+  width:175px;
+  height:175px;
+  display:block;
+  overflow:visible;
+  transform:translateX(-50%) rotate(-2deg);
+  filter:drop-shadow(0 18px 20px rgba(185,75,20,.16));
+  z-index:2;
+}
+
+
+/* =========================================================
+   FLOATING CARDS
+========================================================= */
+
+.hero-float-card{
+  position:absolute;
+  display:grid;
+  place-items:center;
+  border:1px solid rgba(255,255,255,.8);
+  background:rgba(255,255,255,.9);
+  box-shadow:0 12px 28px rgba(70,35,20,.10);
+  backdrop-filter:blur(8px);
+  z-index:4;
+}
+
+.hero-list-card{
+  left:18px;
+  top:40px;
+  width:48px;
+  height:48px;
+  border-radius:14px;
+  color:#ff642d;
+  font-size:25px;
+  transform:rotate(-18deg);
+}
+
+.hero-list-card span{
+  transform:rotate(18deg);
+}
+
+.hero-heart-card{
+  right:10px;
+  top:15px;
+  width:48px;
+  height:48px;
+  border-radius:50%;
+  color:#ff642d;
+  font-size:25px;
+  transform:rotate(8deg);
+}
+
+
+/* =========================================================
+   NEW ORDER BUTTON
+========================================================= */
+
+.orders-new-btn{
+  position:relative;
+  z-index:6;
+  flex-shrink:0;
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  gap:8px;
+  min-height:42px;
+  padding:0 17px;
+  border:1px solid #efd9ce;
+  border-radius:999px;
+  background:#fff;
+  color:#302824;
+  font-size:10px;
+  font-weight:900;
+  box-shadow:0 8px 25px rgba(55,30,18,.08);
+  white-space:nowrap;
+  text-decoration:none;
+  transition:.2s ease;
+}
+
+.orders-new-btn span,
+.orders-new-btn strong{
+  color:#ff642d;
+}
+
+.orders-new-btn strong{
+  font-size:15px;
+}
+
+.orders-new-btn:hover{
+  color:#ff642d;
+  border-color:#ffc2a8;
+  transform:translateY(-2px);
+  box-shadow:0 12px 30px rgba(55,30,18,.11);
+}
+
+
+/* =========================================================
+   ORDERS SECTION
+========================================================= */
+
+.orders-section{
+  padding:25px 0 80px;
+}
+
+#orders-list{
+  display:grid;
+  gap:18px;
+}
+
+
+/* =========================================================
+   ORDER CARD
+========================================================= */
+
+#orders-list .order-card{
+  position:relative;
+  overflow:hidden;
+  width:100%;
+  box-sizing:border-box;
+  border:1px solid #eadfd8;
+  border-radius:22px;
+  background:#fff;
+  box-shadow:
+    0 15px 45px rgba(45,28,18,.065),
+    0 2px 8px rgba(45,28,18,.025);
+  transition:.22s ease;
+}
+
+#orders-list .order-card:hover{
+  transform:translateY(-3px);
+  border-color:#e4d0c4;
+  box-shadow:0 22px 58px rgba(45,28,18,.10);
+}
+
+
+/* =========================================================
+   ORDER HEADER
+========================================================= */
+
+#orders-list .order-head{
+  display:flex;
+  align-items:flex-start;
+  justify-content:space-between;
+  gap:20px;
+  min-height:66px;
+  padding:17px 22px 14px;
+  border-bottom:1px solid #f0e7e1;
+  background:#fff;
+}
+
+#orders-list .order-head .eyebrow{
+  display:block;
+  color:#ff642d;
+  font-size:8px;
+  font-weight:900;
+  letter-spacing:1.4px;
+  text-transform:uppercase;
+}
+
+#orders-list .order-head h3{
+  margin:3px 0 2px;
+  color:#201b18;
+  font-size:15px;
+  font-weight:900;
+  line-height:1.2;
+}
+
+#orders-list .order-head small{
+  color:#8d837d;
+  font-size:9px;
+}
+
+
+/* =========================================================
+   STATUS
+========================================================= */
+
+#orders-list .status-pill{
+  display:inline-flex;
+  align-items:center;
+  gap:6px;
+  padding:6px 10px;
+  border-radius:999px;
+  font-size:9px;
+  font-weight:900;
+  white-space:nowrap;
+}
+
+#orders-list .status-pill::before{
+  content:"";
+  width:6px;
+  height:6px;
+  border-radius:50%;
+}
+
+#orders-list .status-delivered{
+  background:#eaf9f0;
+  color:#159354;
+}
+
+#orders-list .status-delivered::before{
+  background:#27b66d;
+}
+
+#orders-list .status-active{
+  background:#fff0e8;
+  color:#ed5c2c;
+}
+
+#orders-list .status-active::before{
+  background:#ff642d;
+}
+
+
+/* =========================================================
+   FOOD ITEMS
+========================================================= */
+
+#orders-list .order-items{
+  padding:0 22px;
+  border-top:1px solid #f2e9e4;
+  background:#fff;
+}
+
+#orders-list .order-item-row{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:15px;
+  min-height:67px;
+  padding:9px 0;
+  border-bottom:1px solid #f3ece7;
+  color:#302925;
+  font-size:12px;
+}
+
+#orders-list .order-item-row:last-child{
+  border-bottom:0;
+}
+
+#orders-list .order-item-row > div{
+  min-width:0;
+  display:flex;
+  align-items:center;
+  gap:7px;
+}
+
+#orders-list .order-item-row > div span{
+  overflow:hidden;
+  color:#302925;
+  font-size:11px;
+  font-weight:700;
+  text-overflow:ellipsis;
+  white-space:nowrap;
+}
+
+#orders-list .order-item-row small{
+  flex-shrink:0;
+  color:#9b9089;
+  font-size:8px;
+  font-weight:700;
+}
+
+#orders-list .order-item-row > b{
+  flex-shrink:0;
+  color:#29231f;
+  font-size:11px;
+  font-weight:900;
+}
+
+
+/* =========================================================
+   FOOD IMAGE SUPPORT
+========================================================= */
+
+#orders-list .order-food-image{
+  width:50px;
+  height:50px;
+  flex:0 0 50px;
+  object-fit:cover;
+  border-radius:11px;
+  background:#f5eee8;
+}
+
+#orders-list .order-item-info{
+  display:flex;
+  align-items:center;
+  gap:11px;
+  min-width:0;
+}
+
+#orders-list .order-food-copy{
+  min-width:0;
+}
+
+#orders-list .order-food-title{
+  display:flex;
+  align-items:center;
+  gap:6px;
+  min-width:0;
+}
+
+#orders-list .order-food-title span{
+  overflow:hidden;
+  color:#302925;
+  font-size:11px;
+  font-weight:900;
+  white-space:nowrap;
+  text-overflow:ellipsis;
+}
+
+#orders-list .order-food-title small{
+  flex-shrink:0;
+  color:#9b9089;
+  font-size:8px;
+  font-weight:700;
+}
+
+#orders-list .order-food-copy p{
+  margin:3px 0 0;
+  color:#968b84;
+  font-size:8px;
+  line-height:1.4;
+}
+
+#orders-list .order-item-price{
+  flex-shrink:0;
+  color:#29231f;
+  font-size:11px;
+  font-weight:900;
+}
+
+
+/* =========================================================
+   DETAILS
+========================================================= */
+
+#orders-list .order-details{
+  display:grid;
+  grid-template-columns:repeat(3,minmax(0,1fr));
+  gap:9px;
+  padding:8px 22px 6px;
+}
+
+#orders-list .order-details > div{
+  display:flex;
+  flex-direction:column;
+  justify-content:center;
+  min-height:45px;
+  padding:7px 11px;
+  border:1px solid #f0e4dc;
+  border-radius:11px;
+  background:#fffaf7;
+}
+
+#orders-list .order-details span{
+  color:#988d86;
+  font-size:8px;
+  font-weight:700;
+  line-height:1.3;
+}
+
+#orders-list .order-details b{
+  margin-top:3px;
+  color:#302925;
+  font-size:10px;
+  font-weight:900;
+  line-height:1.35;
+}
+
+
+/* =========================================================
+   PRICE
+========================================================= */
+
+#orders-list .order-price-box{
+  margin:5px 22px 0;
+  padding:8px 0 0;
+  border-top:1px solid #eee5df;
+}
+
+#orders-list .order-price-box > div{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  padding:3px 0;
+  color:#827870;
+  font-size:9px;
+}
+
+#orders-list .order-price-box > div b{
+  color:#423a35;
+  font-size:9px;
+  font-weight:800;
+}
+
+#orders-list .order-price-box .discount-line,
+#orders-list .order-price-box .discount-line b{
+  color:#1d9b59;
+}
+
+#orders-list .order-price-box .order-total-row{
+  margin-top:4px;
+  padding:9px 12px;
+  border-radius:11px;
+  background:#fff0e8;
+  color:#332b26;
+  font-size:11px;
+  font-weight:900;
+}
+
+#orders-list .order-price-box .order-total-row strong{
+  color:#ff642d;
+  font-size:18px;
+  font-weight:900;
+}
+
+
+/* =========================================================
+   ADDRESS
+========================================================= */
+
+#orders-list .order-foot{
+  margin:8px 22px 0;
+  padding:9px 0 3px;
+  border-top:1px solid #eee5df;
+}
+
+#orders-list .address-label{
+  display:flex;
+  align-items:center;
+  gap:6px;
+  margin-bottom:4px;
+  color:#7b716b;
+  font-size:8px;
+  font-weight:900;
+  letter-spacing:.8px;
+  text-transform:uppercase;
+}
+
+#orders-list .order-foot p{
+  margin:0;
+  color:#3c342f;
+  font-size:10px;
+  font-weight:700;
+  line-height:1.5;
+}
+
+
+/* =========================================================
+   TIMELINE
+========================================================= */
+
+#orders-list .timeline{
+  position:relative;
+  display:grid;
+  grid-template-columns:repeat(5,minmax(0,1fr));
+  gap:0;
+  margin:10px 22px 16px;
+  padding:11px 0 0;
+}
+
+#orders-list .timeline::before{
+  content:"";
+  position:absolute;
+  left:5%;
+  right:5%;
+  top:22px;
+  height:1px;
+  background:#eadfd8;
+  z-index:0;
+}
+
+#orders-list .timeline-step{
+  position:relative;
+  min-width:0;
+  text-align:center;
+  z-index:1;
+}
+
+#orders-list .timeline-marker{
+  display:grid;
+  place-items:center;
+  width:22px;
+  height:22px;
+  margin:0 auto 6px;
+  border:2px solid #fff;
+  border-radius:50%;
+  background:#e3ddd8;
+  color:#8e847d;
+  font-size:7px;
+  font-weight:900;
+  box-shadow:0 0 0 1px #d9d0c9;
+}
+
+#orders-list .timeline-step.done .timeline-marker,
+#orders-list .timeline-step.current .timeline-marker{
+  background:#ff6b2c;
+  color:#fff;
+  box-shadow:
+    0 0 0 1px #ffb18e,
+    0 4px 10px rgba(255,107,44,.17);
+}
+
+#orders-list .timeline-step.current .timeline-marker{
+  transform:scale(1.08);
+  box-shadow:
+    0 0 0 4px rgba(255,107,44,.09),
+    0 0 0 1px #ffb18e;
+}
+
+#orders-list .timeline-content{
+  padding:0 4px;
+}
+
+#orders-list .timeline-content b{
+  display:block;
+  color:#999089;
+  font-size:7px;
+  font-weight:700;
+  line-height:1.35;
+}
+
+#orders-list .timeline-step.done .timeline-content b,
+#orders-list .timeline-step.current .timeline-content b{
+  color:#38312c;
+  font-weight:900;
+}
+
+#orders-list .timeline-content small{
+  display:block;
+  margin-top:3px;
+  color:#9b918a;
+  font-size:7px;
+  line-height:1.3;
+}
+
+#orders-list .timeline-step i{
+  display:none !important;
+}
+
+
+/* =========================================================
+   EMPTY STATE
+========================================================= */
+
+#orders-list .empty-state{
+  padding:70px 25px;
+  border:1px dashed #ded3cb;
+  border-radius:24px;
+  background:#fff;
+  text-align:center;
+}
+
+#orders-list .empty-icon{
+  display:grid;
+  place-items:center;
+  width:70px;
+  height:70px;
+  margin:0 auto 18px;
+  border-radius:20px;
+  background:#fff0e8;
+  font-size:28px;
+}
+
+#orders-list .empty-state h2{
+  margin:0 0 8px;
+  color:#29221e;
+  font-size:21px;
+  font-weight:900;
+}
+
+#orders-list .empty-state p{
+  max-width:420px;
+  margin:0 auto 22px;
+  color:#8b817a;
+  font-size:12px;
+  line-height:1.7;
+}
+
+#orders-list .empty-state .primary-btn{
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  min-height:44px;
+  padding:0 18px;
+  border-radius:999px;
+  background:#ff642d;
+  color:#fff;
+  font-size:11px;
+  font-weight:900;
+}
+
+
+/* =========================================================
+   DESKTOP
+========================================================= */
+
+@media(min-width:1200px){
+
+  #orders-list .order-card{
+    max-width:1000px;
+    margin:0 auto;
+  }
+
+}
+
+
+/* =========================================================
+   TABLET
+========================================================= */
+
+@media(max-width:900px){
+
+  .orders-heading{
+    max-width:55%;
+  }
+
+  .orders-hero-art{
+    left:auto;
+    right:3%;
+    transform:scale(.82);
+    transform-origin:center;
+  }
+
+}
+
+
+/* =========================================================
+   800px
+========================================================= */
+
+@media(max-width:800px){
+
+  .orders-hero{
+    min-height:0;
+    padding:40px 0 30px;
+  }
+
+  .orders-hero-inner{
+    display:block;
+    min-height:0;
+  }
+
+  .orders-heading{
+    max-width:100%;
+  }
+
+  .orders-heading h1{
+    font-size:48px;
+    letter-spacing:-2.5px;
+  }
+
+  .orders-new-btn{
+    margin-top:18px;
+  }
+
+  #orders-list .order-details{
+    grid-template-columns:1fr;
+  }
+
+}
+
+
+/* =========================================================
+   MOBILE
+========================================================= */
+
+@media(max-width:700px){
+
+  .orders-hero{
+    padding:35px 0 25px;
+  }
+
+  .orders-heading h1{
+    font-size:43px;
+    letter-spacing:-2px;
+  }
+
+  .orders-heading p{
+    font-size:12px;
+  }
+
+  .orders-hero-art{
+    position:relative;
+    left:auto;
+    right:auto;
+    top:auto;
+    width:220px;
+    height:160px;
+    margin:5px auto 0;
+    transform:none;
+  }
+
+  .orders-bag{
+    width:125px;
+    height:125px;
+  }
+
+  .hero-list-card{
+    left:0;
+    top:30px;
+  }
+
+  .hero-heart-card{
+    right:5px;
+    top:5px;
+  }
+
+  .orders-new-btn{
+    margin:4px auto 0;
+  }
+
+  #orders-list .order-head{
+    padding:15px 15px 13px;
+  }
+
+  #orders-list .order-items{
+    padding-left:15px;
+    padding-right:15px;
+  }
+
+  #orders-list .order-details{
+    padding-left:15px;
+    padding-right:15px;
+  }
+
+  #orders-list .order-price-box{
+    margin-left:15px;
+    margin-right:15px;
+  }
+
+  #orders-list .order-foot{
+    margin-left:15px;
+    margin-right:15px;
+  }
+
+  #orders-list .timeline{
+    margin-left:15px;
+    margin-right:15px;
+    overflow-x:auto;
+    grid-template-columns:repeat(5,120px);
+    padding-bottom:5px;
+  }
+
+  #orders-list .timeline::before{
+    left:60px;
+    right:60px;
+  }
+
+}
+
+
+/* =========================================================
+   SMALL MOBILE
+========================================================= */
+
+@media(max-width:480px){
+
+  .orders-heading h1{
+    font-size:38px;
+  }
+
+  #orders-list .order-card{
+    border-radius:19px;
+  }
+
+  #orders-list .order-food-image{
+    width:45px;
+    height:45px;
+    flex-basis:45px;
+  }
+
+  #orders-list .order-food-copy p{
+    max-width:190px;
+  }
+
+}
+
+
+/* =========================
+   TIMELINE TEXT FIX
+========================= */
+
+#orders-list .timeline{
+  margin-top:18px;
+  padding-top:16px;
+}
+
+#orders-list .timeline::before{
+  top:27px;
+  left:6%;
+  right:6%;
+  height:2px;
+  background:#eadfd8;
+}
+
+#orders-list .timeline-marker{
+  width:28px;
+  height:28px;
+  margin-bottom:10px;
+
+  font-size:10px;
+  font-weight:900;
+
+  border:2px solid #fff;
+}
+
+#orders-list .timeline-content{
+  padding:0 8px;
+}
+
+#orders-list .timeline-content b{
+  display:block;
+
+  color:#403832;
+  font-size:10px;
+  font-weight:900;
+
+  line-height:1.35;
+  white-space:nowrap;
+}
+
+#orders-list .timeline-step.done .timeline-content b,
+#orders-list .timeline-step.current .timeline-content b{
+  color:#2d2723;
+  font-size:10px;
+  font-weight:900;
+}
+
+#orders-list .timeline-content small{
+  display:block;
+
+  margin-top:5px;
+
+  color:#91867e;
+  font-size:8px;
+
+  line-height:1.4;
+  white-space:nowrap;
+}
+
+#orders-list .timeline-step.current .timeline-marker{
+  transform:scale(1.12);
+}
+
+
+/* =========================
+   DESKTOP TIMELINE
+========================= */
+
+@media(min-width:901px){
+
+  #orders-list .timeline-content b{
+    font-size:10px;
+  }
+
+  #orders-list .timeline-content small{
+    font-size:8px;
+  }
+
+}
+
+
+/* =========================
+   MOBILE TIMELINE
+========================= */
+
+@media(max-width:700px){
+
+  #orders-list .timeline{
+    grid-template-columns:repeat(5,130px);
+    overflow-x:auto;
+    padding-top:16px;
+  }
+
+  #orders-list .timeline-content b{
+    font-size:10px;
+  }
+
+  #orders-list .timeline-content small{
+    font-size:8px;
+  }
+
+}
+
+/* =========================================================
+   EXTRA SMALL
+========================================================= */
+
+@media(max-width:420px){
+
+  #orders-list .order-head{
+    padding:14px 14px 12px;
+  }
+
+  #orders-list .order-items{
+    padding-left:14px;
+    padding-right:14px;
+  }
+
+  #orders-list .order-details{
+    padding-left:14px;
+    padding-right:14px;
+  }
+
+  #orders-list .order-price-box{
+    margin-left:14px;
+    margin-right:14px;
+  }
+
+  #orders-list .order-foot{
+    margin-left:14px;
+    margin-right:14px;
+  }
+
+  #orders-list .timeline{
+    margin-left:14px;
+    margin-right:14px;
+  }
+
+}
+
+  </style>
+
+</head>
+
+
+<body
+  data-page="my-orders"
+  class="orders-page">
+
+
+<!-- =========================================================
+     HEADER
+========================================================= -->
+
+<header class="site-header">
+
+  <div class="container header-inner">
+
+    <a
+      class="brand"
+      href="../index.html"
+      aria-label="FoodFleet Home">
+
+      <img
+        src="../assets/images/logo-mark.svg"
+        alt="FoodFleet logo">
+
+      <span>
+        Food<span>Fleet</span>
+      </span>
+
+    </a>
+
+
+    <nav
+      class="main-nav"
+      id="main-nav"
+      aria-label="Main navigation">
+
+      <a href="../index.html">
+        Home
+      </a>
+
+      <a href="restaurants.html">
+        Restaurants
+      </a>
+
+      <a
+        href="orders.html"
+        class="active">
+
+        My Orders
+
+      </a>
+
+    </nav>
+
+
+    <div class="header-actions">
+
+      <button
+        class="location-chip"
+        data-location-open
+        type="button"
+        aria-label="Change delivery division">
+
+        <span>
+          📍
+        </span>
+
+        <span data-city>
+          Dhaka Division
+        </span>
+
+      </button>
+
+
+      <a
+        class="cart-link"
+        href="cart.html"
+        aria-label="Shopping cart">
+
+        <span>
+          🛒
+        </span>
+
+        <span data-cart-count>
+          0
+        </span>
+
+      </a>
+
+
+      <a
+        class="profile-link"
+        href="profile.html"
+        data-profile-link
+        aria-label="Open profile">
+
+        <span
+          class="profile-avatar"
+          data-profile-avatar>
+
+          S
+
+        </span>
+
+        <span data-profile-name>
+          Shuvo
+        </span>
+
+      </a>
+
+
+      <button
+        class="mobile-menu-btn"
+        data-mobile-menu
+        type="button"
+        aria-label="Open menu"
+        aria-expanded="false">
+
+        ☰
+
+      </button>
+
+    </div>
+
+  </div>
+
+</header>
+
+
+<!-- =========================================================
+     LOCATION MODAL
+========================================================= -->
+
+<div
+  class="modal-overlay"
+  data-location-modal
+  hidden>
+
+  <div class="modal location-modal">
+
+    <button
+      class="modal-close"
+      type="button"
+      data-location-close
+      aria-label="Close">
+
+      ×
+
+    </button>
+
+
+    <div class="modal-icon">
+      📍
+    </div>
+
+
+    <h3>
+      Choose your location
+    </h3>
+
+
+    <p>
+      Select your delivery division.
+    </p>
+
+
+    <div class="form-group">
+
+      <label for="location-division">
+        Division
+      </label>
+
+      <select
+        id="location-division"
+        data-location-division>
+      </select>
+
+    </div>
+
+
+    <button
+      class="btn btn-primary btn-full"
+      type="button"
+      data-location-save>
+
+      Save location
+
+    </button>
+
+  </div>
+
+</div>
+
+
+<!-- =========================================================
+     MAIN
+========================================================= -->
+
+<main>
+
+
+<section class="orders-hero">
+
+  <div class="container orders-hero-inner">
+
+
+    <div class="orders-heading">
+
+      <div class="eyebrow">
+        YOUR FOOD JOURNEY
+      </div>
+
+
+      <h1>
+        My <span>Orders</span>
+      </h1>
+
+
+      <p>
+        Track your recent FoodFleet orders,
+        check delivery progress and revisit
+        what you loved.
+      </p>
+
+    </div>
+
+
+    <!-- HERO ART -->
+
+    <div class="orders-hero-art">
+
+
+      <div
+        class="hero-float-card hero-list-card">
+
+        <span>
+          ☷
+        </span>
+
+      </div>
+
+
+      <div
+        class="hero-float-card hero-heart-card">
+
+        ♥
+
+      </div>
+
+
+      <!-- INLINE BAG -->
+
+      <svg
+        class="orders-bag"
+        viewBox="0 0 220 220"
+        aria-hidden="true">
+
+        <defs>
+
+          <linearGradient
+            id="bagBlue"
+            x1="0"
+            y1="0"
+            x2="1"
+            y2="1">
+
+            <stop
+              offset="0%"
+              stop-color="#35a9ff"/>
+
+            <stop
+              offset="100%"
+              stop-color="#1685df"/>
+
+          </linearGradient>
+
+
+          <linearGradient
+            id="bagOrange"
+            x1="0"
+            y1="0"
+            x2="1"
+            y2="1">
+
+            <stop
+              offset="0%"
+              stop-color="#ff9b38"/>
+
+            <stop
+              offset="100%"
+              stop-color="#f26a25"/>
+
+          </linearGradient>
+
+        </defs>
+
+
+        <!-- Blue handle -->
+
+        <path
+          d="M72 73 C72 35 148 35 148 73"
+          fill="none"
+          stroke="#1685df"
+          stroke-width="12"
+          stroke-linecap="round"/>
+
+
+        <!-- Orange bag -->
+
+        <path
+          d="M122 91 L171 103 L171 158 L121 148 Z"
+          fill="url(#bagOrange)"/>
+
+
+        <!-- Blue bag -->
+
+        <path
+          d="M48 68 L126 77 L119 159 L43 150 Z"
+          fill="url(#bagBlue)"/>
+
+
+        <!-- Bag top -->
+
+        <path
+          d="M48 68 L126 77 L124 91 L46 82 Z"
+          fill="#54baff"/>
+
+
+        <!-- Highlight -->
+
+        <path
+          d="M57 82 L63 84 L58 143 L52 142 Z"
+          fill="#fff"
+          opacity=".28"/>
+
+
+        <!-- Orange handle -->
+
+        <path
+          d="M128 91 C128 63 174 64 174 94"
+          fill="none"
+          stroke="#f26a25"
+          stroke-width="9"
+          stroke-linecap="round"/>
+
+
+        <!-- White mark -->
+
+        <path
+          d="M75 105 C82 95 96 96 100 106 C103 115 94 124 83 124 C75 124 70 117 75 105Z"
+          fill="#fff"
+          opacity=".9"/>
+
+      </svg>
+
+    </div>
+
+
+    <!-- NEW ORDER BUTTON -->
+
+    <a
+      href="restaurants.html"
+      class="btn btn-primary orders-new-btn">
+
+      <span>
+        🍴
+      </span>
+
+      Order something new
+
+      <strong>
+        →
+      </strong>
+
+    </a>
+
+
+  </div>
+
+</section>
+
+
+<!-- =========================================================
+     ORDERS
+========================================================= -->
+
+<section class="orders-section">
+
+  <div class="container">
+
+    <div id="orders-list"></div>
+
+  </div>
+
+</section>
+
+
+</main>
+
+
+<!-- =========================================================
+     FOOTER
+========================================================= -->
+
+<footer class="footer">
+
+  <div class="container footer-grid">
+
+
+    <div class="footer-brand">
+
+      <a
+        href="../index.html"
+        class="brand">
+
+        <img
+          src="../assets/images/logo-mark.svg"
+          alt="FoodFleet">
+
+        <span>
+          Food<span>Fleet</span>
+        </span>
+
+      </a>
+
+
+      <p>
+        Good food. Good mood.
+        <br>
+        Your local food delivery companion.
+      </p>
+
+    </div>
+
+
+    <div class="footer-col">
+
+      <h4>
+        Explore
+      </h4>
+
+      <a href="../index.html">
+        Home
+      </a>
+
+      <a href="restaurants.html">
+        Restaurants
+      </a>
+
+      <a href="orders.html">
+        My Orders
+      </a>
+
+      <a href="cart.html">
+        Cart
+      </a>
+
+    </div>
+
+
+    <div class="footer-col">
+
+      <h4>
+        Account
+      </h4>
+
+      <a href="profile.html">
+        Profile
+      </a>
+
+      <a href="login.html">
+        Login
+      </a>
+
+      <a href="register.html">
+        Create account
+      </a>
+
+    </div>
+
+
+    <div class="footer-col">
+
+      <h4>
+        FoodFleet
+      </h4>
+
+      <span>
+        🇧🇩 Made for Bangladesh
+      </span>
+
+      <span>
+        ⚡ Fast delivery
+      </span>
+
+      <span>
+        🤖 FoodFleet AI
+      </span>
+
+    </div>
+
+  </div>
+
+
+  <div class="container footer-bottom">
+
+    <span>
+      © 2026 FoodFleet. All rights reserved.
+    </span>
+
+    <span>
+      Good food. Good mood. ❤️
+    </span>
+
+  </div>
+
+</footer>
+
+
+<!-- =========================================================
+     TOAST
+========================================================= -->
+
+<div
+  class="toast"
+  id="toast"
+  role="status"
+  aria-live="polite">
+</div>
+
+
+<!-- =========================================================
+     AI
+========================================================= -->
+
+<div id="ai-root"></div>
+
+
+<!-- =========================================================
+     SCRIPTS
+========================================================= -->
+
+<script src="../js/data.js"></script>
+<script src="../js/app.js"></script>
+<script src="../js/orders.js"></script>
+<script src="../js/ai.js"></script>
+
+
+</body>
+
+</html>

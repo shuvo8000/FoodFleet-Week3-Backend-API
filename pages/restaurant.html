@@ -1,0 +1,712 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<title>Restaurant · FoodFleet</title>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#ff6b2c">
+<meta
+    name="description"
+    content="Explore restaurant menus and order your favorite food with FoodFleet."
+>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+<link
+    href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700;800&family=Playfair+Display:wght@600;700&display=swap"
+    rel="stylesheet"
+>
+
+<link rel="stylesheet" href="../css/style.css">
+<link rel="stylesheet" href="../css/components.css">
+<link rel="stylesheet" href="../css/responsive.css">
+
+<style>
+/* =========================
+   RESTAURANT DETAIL POLISH
+========================= */
+
+.restaurant-page{
+    background:
+        radial-gradient(circle at 100% 0%,rgba(255,107,44,.035),transparent 25%),
+        #fff;
+}
+
+/* hero */
+
+.restaurant-detail-hero{
+    position:relative;
+    overflow:hidden;
+}
+
+.restaurant-detail-hero::before{
+    content:"";
+    position:absolute;
+    width:420px;
+    height:420px;
+    right:-180px;
+    top:-220px;
+    border-radius:50%;
+    background:rgba(255,107,44,.055);
+    pointer-events:none;
+}
+
+.restaurant-detail-hero::after{
+    content:"";
+    position:absolute;
+    width:180px;
+    height:180px;
+    left:-100px;
+    bottom:-120px;
+    border-radius:50%;
+    background:rgba(255,180,90,.055);
+    pointer-events:none;
+}
+
+.restaurant-detail-hero > *{
+    position:relative;
+    z-index:2;
+}
+
+/* restaurant content */
+
+.restaurant-detail-content{
+    position:relative;
+}
+
+.restaurant-detail-content h1{
+    max-width:650px;
+}
+
+.restaurant-detail-content p{
+    max-width:650px;
+}
+
+/* restaurant image */
+
+.restaurant-detail-image{
+    position:relative;
+    overflow:hidden;
+    border-radius:28px;
+    min-height:340px;
+}
+
+.restaurant-detail-image img{
+    width:100%;
+    height:100%;
+    object-fit:cover;
+    transition:transform .5s ease;
+}
+
+.restaurant-detail-image:hover img{
+    transform:scale(1.035);
+}
+
+/* restaurant badges */
+
+.restaurant-detail-meta{
+    display:flex;
+    flex-wrap:wrap;
+    gap:10px;
+    margin-top:18px;
+}
+
+.restaurant-detail-meta span{
+    display:inline-flex;
+    align-items:center;
+    gap:6px;
+    padding:8px 12px;
+    border-radius:999px;
+    background:#fff;
+    border:1px solid rgba(40,25,15,.09);
+    box-shadow:0 5px 16px rgba(40,25,15,.05);
+    font-size:13px;
+    font-weight:700;
+}
+
+/* action buttons */
+
+.restaurant-detail-actions{
+    display:flex;
+    align-items:center;
+    gap:12px;
+    flex-wrap:wrap;
+    margin-top:22px;
+}
+
+.restaurant-detail-actions .primary-btn{
+    min-width:150px;
+}
+
+.restaurant-favorite-btn{
+    min-width:48px;
+    min-height:48px;
+    border-radius:14px;
+    border:1px solid rgba(40,25,15,.11);
+    background:#fff;
+    font-size:20px;
+    cursor:pointer;
+    transition:
+        transform .2s ease,
+        border-color .2s ease,
+        background .2s ease;
+}
+
+.restaurant-favorite-btn:hover{
+    transform:translateY(-2px);
+    border-color:rgba(255,107,44,.35);
+}
+
+/* menu */
+
+.restaurant-menu-section{
+    position:relative;
+}
+
+.restaurant-menu-section .section-head{
+    align-items:flex-end;
+}
+
+.restaurant-menu-section .section-subtitle{
+    margin-top:5px;
+}
+
+/* menu category */
+
+#menu-categories{
+    justify-content:flex-end;
+    flex-wrap:wrap;
+}
+
+#menu-categories .filter-btn{
+    white-space:nowrap;
+}
+
+/* food grid */
+
+#restaurant-food-grid{
+    margin-top:32px;
+    animation:menuIn .45s ease both;
+}
+
+.food-card{
+    transition:
+        transform .25s ease,
+        box-shadow .25s ease;
+}
+
+.food-card:hover{
+    transform:translateY(-5px);
+}
+
+/* CTA */
+
+.restaurant-cta-section{
+    padding-top:20px;
+}
+
+.restaurant-cta-section .promo-banner{
+    position:relative;
+    overflow:hidden;
+}
+
+.restaurant-cta-section .promo-banner::after{
+    content:"🍽️";
+    position:absolute;
+    right:35px;
+    bottom:-15px;
+    font-size:100px;
+    opacity:.07;
+    transform:rotate(-10deg);
+    pointer-events:none;
+}
+
+.restaurant-cta-section .promo-banner > *{
+    position:relative;
+    z-index:2;
+}
+
+/* footer */
+
+.footer{
+    margin-top:20px;
+}
+
+/* animation */
+
+@keyframes menuIn{
+    from{
+        opacity:0;
+        transform:translateY(12px);
+    }
+    to{
+        opacity:1;
+        transform:translateY(0);
+    }
+}
+
+/* mobile */
+
+@media(max-width:850px){
+
+    .restaurant-detail-image{
+        min-height:300px;
+    }
+
+    .restaurant-menu-section .section-head{
+        align-items:flex-start;
+    }
+
+    #menu-categories{
+        justify-content:flex-start;
+        margin-top:20px;
+    }
+}
+
+@media(max-width:600px){
+
+    .restaurant-detail-hero::before{
+        width:280px;
+        height:280px;
+        right:-140px;
+    }
+
+    .restaurant-detail-image{
+        min-height:250px;
+        border-radius:20px;
+    }
+
+    .restaurant-detail-content h1{
+        margin-top:8px;
+    }
+
+    .restaurant-detail-meta{
+        gap:7px;
+    }
+
+    .restaurant-detail-meta span{
+        padding:7px 10px;
+        font-size:12px;
+    }
+
+    .restaurant-detail-actions{
+        width:100%;
+    }
+
+    .restaurant-detail-actions .primary-btn{
+        flex:1;
+    }
+
+    .restaurant-favorite-btn{
+        min-width:50px;
+    }
+
+    .restaurant-cta-section .promo-banner::after{
+        font-size:75px;
+        right:15px;
+    }
+}
+
+@media(max-width:420px){
+
+    .restaurant-detail-actions .primary-btn{
+        min-width:0;
+    }
+
+    #menu-categories{
+        width:100%;
+        overflow-x:auto;
+        flex-wrap:nowrap;
+        justify-content:flex-start;
+        padding-bottom:5px;
+        scrollbar-width:none;
+    }
+
+    #menu-categories::-webkit-scrollbar{
+        display:none;
+    }
+
+    #menu-categories .filter-btn{
+        flex:0 0 auto;
+    }
+}
+
+@media(prefers-reduced-motion:reduce){
+
+    .restaurant-detail-image img,
+    .restaurant-favorite-btn,
+    .food-card{
+        transition:none;
+    }
+
+    #restaurant-food-grid{
+        animation:none;
+    }
+}
+</style>
+</head>
+
+<body data-page="restaurant" class="restaurant-page">
+
+<!-- =========================
+     HEADER
+========================= -->
+
+<header class="site-header">
+
+    <div class="container header-inner">
+
+        <a
+            class="brand"
+            href="../index.html"
+            aria-label="FoodFleet Home">
+
+            <img
+                src="../assets/images/logo-mark.svg"
+                alt="FoodFleet logo">
+
+            <span>
+                Food<span>Fleet</span>
+            </span>
+
+        </a>
+
+
+        <nav
+            class="main-nav"
+            aria-label="Main navigation">
+
+            <a href="../index.html">
+                Home
+            </a>
+
+            <a
+                href="restaurants.html"
+                class="active">
+                Restaurants
+            </a>
+
+            <a href="orders.html">
+                My Orders
+            </a>
+
+        </nav>
+
+
+        <div class="header-actions">
+
+            <button
+                class="location-chip"
+                data-location-btn
+                type="button"
+                aria-label="Change delivery location">
+
+                <span>⌖</span>
+
+                <span data-city>
+                    Dhaka
+                </span>
+
+            </button>
+
+
+            <a
+                class="cart-link"
+                href="cart.html"
+                aria-label="Shopping cart">
+
+                <span>🛒</span>
+
+                <span
+                    data-cart-count>
+                    0
+                </span>
+
+            </a>
+
+
+            <a
+                class="profile-link"
+                href="profile.html"
+                data-profile-link
+                aria-label="Open profile">
+
+                SB
+
+            </a>
+
+
+            <button
+                class="mobile-menu-btn"
+                data-mobile-menu
+                type="button"
+                aria-label="Open menu"
+                aria-expanded="false">
+
+                ☰
+
+            </button>
+
+        </div>
+
+    </div>
+
+</header>
+
+
+<!-- =========================
+     MAIN
+========================= -->
+
+<main>
+
+    <!-- RESTAURANT HERO -->
+
+    <section
+        class="restaurant-detail-hero"
+        id="restaurant-detail-hero"
+        aria-label="Restaurant information">
+
+        <!-- restaurant.js renders the restaurant hero -->
+
+    </section>
+
+
+    <!-- MENU -->
+
+    <section class="section restaurant-menu-section">
+
+        <div class="container">
+
+            <div class="section-head">
+
+                <div>
+
+                    <span class="eyebrow">
+                        Today's menu
+                    </span>
+
+                    <h2 id="menu-title">
+                        Popular dishes
+                    </h2>
+
+                    <p class="section-subtitle">
+                        Fresh favorites from this restaurant.
+                    </p>
+
+                </div>
+
+
+                <div
+                    class="filter-row"
+                    id="menu-categories"
+                    aria-label="Menu categories">
+
+                    <!-- Generated by JavaScript -->
+
+                </div>
+
+            </div>
+
+
+            <div
+                id="restaurant-food-grid"
+                class="food-grid">
+
+                <!-- Food cards generated by JavaScript -->
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- CTA -->
+
+    <section class="section restaurant-cta-section">
+
+        <div class="container">
+
+            <div class="promo-banner">
+
+                <div>
+
+                    <span class="eyebrow">
+                        Hungry already?
+                    </span>
+
+                    <h2>
+                        Add your favorites to the cart.
+                    </h2>
+
+                    <p>
+                        Pick your dishes and enjoy
+                        your meal without the wait.
+                    </p>
+
+                </div>
+
+
+                <a
+                    href="cart.html"
+                    class="dark-btn">
+
+                    View cart →
+
+                </a>
+
+            </div>
+
+        </div>
+
+    </section>
+
+</main>
+
+
+<!-- =========================
+     FOOTER
+========================= -->
+
+<footer class="footer">
+
+    <div class="container footer-grid">
+
+        <!-- BRAND -->
+
+        <div>
+
+            <a
+                class="brand footer-brand"
+                href="../index.html">
+
+                <img
+                    src="../assets/images/logo-mark.svg"
+                    alt="">
+
+                <span>
+                    Food<span>Fleet</span>
+                </span>
+
+            </a>
+
+
+            <p>
+                Your neighborhood food,<br>
+                delivered with care.
+            </p>
+
+        </div>
+
+
+        <!-- FOODFLEET -->
+
+        <div>
+
+            <h4>
+                FoodFleet
+            </h4>
+
+            <a href="restaurants.html">
+                Restaurants
+            </a>
+
+            <a href="../index.html#offers">
+                Offers
+            </a>
+
+            <a href="orders.html">
+                Orders
+            </a>
+
+        </div>
+
+
+        <!-- HELP -->
+
+        <div>
+
+            <h4>
+                Help
+            </h4>
+
+            <a href="orders.html">
+                Order tracking
+            </a>
+
+            <a href="profile.html">
+                Profile
+            </a>
+
+            <a href="restaurants.html">
+                Delivery info
+            </a>
+
+        </div>
+
+
+        <!-- LOCATIONS -->
+
+        <div>
+
+            <h4>
+                We deliver in
+            </h4>
+
+            <p>
+                Dhaka<br>
+                Chattogram<br>
+                Sylhet<br>
+                Rajshahi<br>
+                Khulna<br>
+                Barishal<br>
+                Rangpur<br>
+                Mymensingh
+            </p>
+
+        </div>
+
+    </div>
+
+
+    <div class="container footer-bottom">
+
+        <span>
+            © 2026 FoodFleet. Demo project.
+        </span>
+
+        <span>
+            Made for Bangladesh 🇧🇩
+        </span>
+
+    </div>
+
+</footer>
+
+
+<!-- =========================
+     GLOBAL UI
+========================= -->
+
+<div
+    id="toast-root"
+    class="toast-root">
+</div>
+
+<div id="ai-root"></div>
+
+
+<!-- =========================
+     JAVASCRIPT
+========================= -->
+
+<script src="../js/app.js"></script>
+<script src="../js/data.js"></script>
+<script src="../js/restaurant.js"></script>
+<script src="../js/ai.js"></script>
+
+</body>
+</html>

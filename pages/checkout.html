@@ -1,0 +1,1704 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+  <title>Checkout · FoodFleet</title>
+
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#ff6b2c">
+  <meta
+    name="description"
+    content="Complete your FoodFleet order and choose your delivery and payment details.">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+  <link
+    href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700;800&family=Playfair+Display:wght@600;700&display=swap"
+    rel="stylesheet">
+
+  <link rel="stylesheet" href="../css/style.css">
+  <link rel="stylesheet" href="../css/components.css">
+  <link rel="stylesheet" href="../css/responsive.css">
+
+
+  <style>
+
+    /* =========================================================
+       CHECKOUT PAGE
+    ========================================================= */
+
+    .checkout-page{
+      background:
+        radial-gradient(
+          circle at 100% 0%,
+          rgba(255,107,44,.035),
+          transparent 25%
+        ),
+        #fffaf7;
+    }
+
+
+    /* =========================================================
+       HERO
+    ========================================================= */
+
+    .checkout-hero{
+      position:relative;
+      overflow:hidden;
+      background:
+        linear-gradient(
+          110deg,
+          #fffdfb 0%,
+          #fff8f3 60%,
+          #ffede3 100%
+        );
+    }
+
+    .checkout-hero::before{
+      content:"";
+
+      position:absolute;
+
+      width:360px;
+      height:360px;
+
+      right:-170px;
+      top:-220px;
+
+      border-radius:50%;
+
+      background:rgba(255,107,44,.06);
+
+      pointer-events:none;
+    }
+
+    .checkout-hero .container{
+      position:relative;
+      z-index:2;
+    }
+
+
+    /* =========================================================
+       MAIN LAYOUT
+    ========================================================= */
+
+    .checkout-main{
+      padding-top:32px;
+      padding-bottom:70px;
+    }
+
+    .checkout-layout{
+      display:grid;
+      grid-template-columns:minmax(0,1fr) 350px;
+      gap:30px;
+      align-items:start;
+    }
+
+
+    /* =========================================================
+       FORM CARD
+    ========================================================= */
+
+    .form-card{
+      position:relative;
+
+      padding:24px;
+
+      border:1px solid #eadfd8;
+      border-radius:20px;
+
+      background:#fff;
+
+      box-shadow:
+        0 14px 40px rgba(45,28,18,.055);
+    }
+
+
+    /* =========================================================
+       FORM SECTION
+    ========================================================= */
+
+    .form-section{
+      position:relative;
+
+      padding-bottom:28px;
+      margin-bottom:28px;
+
+      border-bottom:1px solid rgba(40,25,15,.08);
+    }
+
+    .form-section:last-of-type{
+      margin-bottom:22px;
+    }
+
+    .form-section h3{
+      display:flex;
+      align-items:center;
+      gap:9px;
+
+      margin:0 0 18px;
+
+      color:#302923;
+
+      font-size:16px;
+      font-weight:900;
+    }
+
+    .form-section h3::before{
+      content:"";
+
+      width:7px;
+      height:7px;
+
+      flex:0 0 7px;
+
+      border-radius:50%;
+
+      background:#ff6b2c;
+
+      box-shadow:
+        0 0 0 5px rgba(255,107,44,.10);
+    }
+
+
+    /* =========================================================
+       FORM GRID
+    ========================================================= */
+
+    .checkout-main .form-grid{
+      display:grid;
+
+      grid-template-columns:
+        repeat(2,minmax(0,1fr));
+
+      gap:16px;
+    }
+
+
+    /* =========================================================
+       LABELS
+    ========================================================= */
+
+    .checkout-main .form-card label{
+      display:block;
+
+      min-width:0;
+
+      margin-bottom:16px;
+
+      color:#4a4039;
+
+      font-size:11px;
+      font-weight:800;
+    }
+
+    .checkout-main .form-grid label{
+      margin-bottom:0;
+    }
+
+
+    /* =========================================================
+       INPUTS
+    ========================================================= */
+
+    .checkout-main .form-card input,
+    .checkout-main .form-card textarea,
+    .checkout-main .form-card select{
+
+      display:block;
+
+      width:100%;
+
+      box-sizing:border-box;
+
+      margin-top:7px;
+
+      padding:12px 13px;
+
+      border:1px solid #e3dbd4;
+
+      border-radius:11px;
+
+      background:#fff;
+
+      color:#302923;
+
+      font-family:inherit;
+
+      font-size:13px;
+      font-weight:500;
+
+      line-height:1.4;
+
+      outline:none;
+
+      transition:
+        border-color .2s ease,
+        box-shadow .2s ease,
+        background .2s ease;
+    }
+
+    .checkout-main .form-card input{
+      height:45px;
+    }
+
+    .checkout-main .form-card textarea{
+      min-height:88px;
+
+      resize:vertical;
+    }
+
+    .checkout-main .form-card select{
+      height:45px;
+
+      cursor:pointer;
+
+      appearance:auto;
+    }
+
+    .checkout-main .form-card input:hover,
+    .checkout-main .form-card textarea:hover,
+    .checkout-main .form-card select:hover{
+      border-color:#d7cbc2;
+    }
+
+    .checkout-main .form-card input:focus,
+    .checkout-main .form-card textarea:focus,
+    .checkout-main .form-card select:focus{
+
+      border-color:#ff9a72;
+
+      background:#fff;
+
+      outline:none;
+
+      box-shadow:
+        0 0 0 4px rgba(255,107,44,.08);
+    }
+
+    .checkout-main .form-card input::placeholder,
+    .checkout-main .form-card textarea::placeholder{
+      color:#aaa19a;
+
+      font-weight:400;
+    }
+
+
+    /* =========================================================
+       PAYMENT
+    ========================================================= */
+
+    .payment-grid{
+      display:grid;
+
+      grid-template-columns:
+        repeat(2,minmax(0,1fr));
+
+      gap:12px;
+    }
+
+    .payment-option{
+      position:relative;
+
+      display:block;
+
+      cursor:pointer;
+
+      transition:
+        transform .2s ease,
+        border-color .2s ease,
+        box-shadow .2s ease;
+    }
+
+    .payment-option:hover{
+      transform:translateY(-2px);
+    }
+
+    .payment-option input{
+      position:absolute;
+
+      opacity:0;
+
+      pointer-events:none;
+    }
+
+    .payment-option > span{
+      display:flex;
+
+      align-items:center;
+
+      gap:11px;
+
+      min-height:74px;
+
+      padding:13px;
+
+      border:1px solid #e8ded7;
+
+      border-radius:15px;
+
+      background:#fff;
+
+      transition:
+        border-color .2s ease,
+        background .2s ease,
+        box-shadow .2s ease;
+    }
+
+    .payment-option input:checked + span{
+
+      border-color:#ff9b76;
+
+      background:#fff8f4;
+
+      box-shadow:
+        0 0 0 3px rgba(255,107,44,.07);
+    }
+
+
+    /* =========================================================
+       PAYMENT ICON
+    ========================================================= */
+
+    .payment-icon{
+
+      width:38px;
+      height:38px;
+
+      flex:0 0 38px;
+
+      display:flex;
+
+      align-items:center;
+      justify-content:center;
+
+      border-radius:11px;
+
+      background:#f8f3ef;
+
+      overflow:hidden;
+
+      font-size:18px;
+    }
+
+    .payment-logo{
+
+      width:30px;
+      height:30px;
+
+      object-fit:contain;
+
+      display:block;
+
+      border-radius:7px;
+    }
+
+    .payment-option b{
+
+      display:block;
+
+      color:#302923;
+
+      font-size:13px;
+      font-weight:900;
+    }
+
+    .payment-option small{
+
+      display:block;
+
+      margin-top:3px;
+
+      color:#857a73;
+
+      font-size:10px;
+    }
+
+
+    /* =========================================================
+       PROMO
+    ========================================================= */
+
+    .promo-input{
+
+      display:flex;
+
+      gap:10px;
+    }
+
+    .promo-input input{
+
+      min-width:0;
+
+      flex:1;
+    }
+
+    .promo-input .secondary-btn{
+
+      min-width:90px;
+    }
+
+    .form-message{
+
+      min-height:20px;
+
+      margin-top:8px;
+
+      font-size:11px;
+    }
+
+
+    /* =========================================================
+       ORDER BUTTON
+    ========================================================= */
+
+    .full-btn{
+
+      width:100%;
+
+      min-height:52px;
+
+      font-size:13px;
+
+      box-shadow:
+        0 12px 28px rgba(255,107,44,.20);
+    }
+
+    .full-btn:hover{
+
+      box-shadow:
+        0 15px 32px rgba(255,107,44,.26);
+    }
+
+    .demo-note{
+
+      display:flex;
+
+      align-items:center;
+      justify-content:center;
+
+      gap:6px;
+
+      margin-top:12px;
+
+      color:#8a817b;
+
+      font-size:10px;
+
+      text-align:center;
+    }
+
+
+    /* =========================================================
+       SUMMARY CARD
+    ========================================================= */
+
+    #checkout-summary{
+
+      position:sticky;
+
+      top:92px;
+
+      width:100%;
+
+      box-sizing:border-box;
+
+      padding:22px;
+
+      border:1px solid #eadfd8;
+
+      border-radius:21px;
+
+      background:#fff;
+
+      box-shadow:
+        0 16px 40px rgba(45,28,18,.07);
+    }
+
+    #checkout-summary::before{
+
+      content:"";
+
+      display:block;
+
+      width:42px;
+      height:4px;
+
+      margin-bottom:17px;
+
+      border-radius:99px;
+
+      background:#ff6b2c;
+
+      opacity:.8;
+    }
+
+
+    /* =========================================================
+       SUMMARY BRAND
+    ========================================================= */
+
+    #checkout-summary .summary-brand{
+
+      margin-bottom:5px;
+
+      color:#ff642d;
+
+      font-size:9px;
+
+      font-weight:900;
+
+      letter-spacing:1.6px;
+    }
+
+
+    /* =========================================================
+       SUMMARY HEAD
+    ========================================================= */
+
+    #checkout-summary .summary-head{
+
+      display:flex;
+
+      align-items:center;
+
+      justify-content:space-between;
+
+      gap:12px;
+
+      margin-bottom:15px;
+    }
+
+    #checkout-summary .summary-head h3{
+
+      margin:0;
+
+      color:#29231f;
+
+      font-size:18px;
+
+      font-weight:900;
+    }
+
+    #checkout-summary .summary-count{
+
+      display:inline-flex;
+
+      align-items:center;
+
+      justify-content:center;
+
+      min-width:38px;
+
+      min-height:23px;
+
+      padding:0 8px;
+
+      border-radius:999px;
+
+      background:#fff0e8;
+
+      color:#ed612f;
+
+      font-size:8px;
+
+      font-weight:900;
+
+      white-space:nowrap;
+    }
+
+
+    /* =========================================================
+       SUMMARY LINES
+    ========================================================= */
+
+    #checkout-summary .summary-lines{
+
+      display:flex;
+
+      flex-direction:column;
+
+      gap:9px;
+
+      padding:14px 0;
+
+      border-top:1px solid #eee5df;
+
+      border-bottom:1px solid #eee5df;
+    }
+
+    #checkout-summary .summary-row{
+
+      display:flex;
+
+      align-items:center;
+
+      justify-content:space-between;
+
+      gap:15px;
+
+      color:#7e746d;
+
+      font-size:11px;
+
+      font-weight:600;
+    }
+
+    #checkout-summary .summary-row span{
+
+      min-width:0;
+
+      line-height:1.4;
+    }
+
+    #checkout-summary .summary-row b{
+
+      flex-shrink:0;
+
+      color:#39312c;
+
+      font-size:11px;
+
+      font-weight:900;
+
+      white-space:nowrap;
+    }
+
+    #checkout-summary .discount-line,
+    #checkout-summary .discount-line b{
+
+      color:#19975a !important;
+    }
+
+
+    /* =========================================================
+       SUMMARY TOTAL
+    ========================================================= */
+
+    #checkout-summary .summary-total{
+
+      display:flex;
+
+      align-items:center;
+
+      justify-content:space-between;
+
+      gap:15px;
+
+      margin-top:14px;
+
+      padding:12px 13px;
+
+      border-radius:12px;
+
+      background:#fff0e8;
+
+      color:#332b26;
+
+      font-size:12px;
+
+      font-weight:900;
+    }
+
+    #checkout-summary .summary-total strong{
+
+      flex-shrink:0;
+
+      color:#ff642d;
+
+      font-size:21px;
+
+      font-weight:900;
+    }
+
+
+    /* =========================================================
+       PROMO SUCCESS
+    ========================================================= */
+
+    #checkout-summary .promo-success,
+    #checkout-summary .promo-hint{
+
+      display:flex;
+
+      align-items:center;
+
+      gap:10px;
+
+      margin-top:13px;
+
+      padding:11px;
+
+      border-radius:12px;
+
+      background:#f1fff7;
+
+    }
+
+    #checkout-summary .promo-success{
+
+      border:1px solid #d8efdf;
+    }
+
+    #checkout-summary .promo-status-icon{
+
+      width:31px;
+      height:31px;
+
+      flex:0 0 31px;
+
+      display:grid;
+
+      place-items:center;
+
+      border-radius:9px;
+
+      background:#ddf6e6;
+
+      color:#159453;
+
+      font-size:13px;
+
+      font-weight:900;
+    }
+
+    #checkout-summary .promo-copy{
+
+      min-width:0;
+    }
+
+    #checkout-summary .promo-copy strong{
+
+      display:block;
+
+      color:#24734c;
+
+      font-size:9px;
+
+      font-weight:900;
+    }
+
+    #checkout-summary .promo-copy small{
+
+      display:block;
+
+      margin-top:3px;
+
+      color:#6f927f;
+
+      font-size:8px;
+
+      line-height:1.4;
+    }
+
+
+    /* =========================================================
+       SUMMARY CHECKOUT BUTTON
+    ========================================================= */
+
+    #checkout-summary .full-btn{
+
+      display:flex;
+
+      align-items:center;
+
+      justify-content:center;
+
+      width:100%;
+
+      min-height:48px;
+
+      margin-top:13px;
+
+      border:0;
+
+      border-radius:12px;
+
+      background:#ff642d;
+
+      color:#fff;
+
+      font-size:11px;
+
+      font-weight:900;
+
+      text-decoration:none;
+
+      box-shadow:
+        0 10px 22px rgba(255,107,44,.18);
+
+      cursor:pointer;
+    }
+
+    #checkout-summary .full-btn:hover{
+
+      background:#ed5928;
+
+      transform:translateY(-1px);
+    }
+
+    #checkout-summary .summary-note{
+
+      margin:11px 0 0;
+
+      color:#968b84;
+
+      font-size:9px;
+
+      line-height:1.5;
+
+      text-align:center;
+    }
+
+
+    /* =========================================================
+       REASSURANCE
+    ========================================================= */
+
+    .checkout-reassurance{
+
+      display:grid;
+
+      grid-template-columns:
+        repeat(3,1fr);
+
+      gap:10px;
+
+      margin-top:20px;
+    }
+
+    .checkout-reassurance div{
+
+      padding:11px 8px;
+
+      text-align:center;
+
+      border:1px solid rgba(40,25,15,.07);
+
+      border-radius:13px;
+
+      background:#fff;
+
+      color:#776d66;
+
+      font-size:9px;
+    }
+
+    .checkout-reassurance strong{
+
+      display:block;
+
+      margin-bottom:3px;
+
+      color:#3c342e;
+
+      font-size:10px;
+    }
+
+
+    /* =========================================================
+       MOBILE
+    ========================================================= */
+
+    @media(max-width:900px){
+
+      .checkout-layout{
+
+        grid-template-columns:1fr;
+      }
+
+      #checkout-summary{
+
+        position:static;
+      }
+
+    }
+
+
+    @media(max-width:850px){
+
+      .payment-grid{
+
+        grid-template-columns:
+          repeat(2,minmax(0,1fr));
+      }
+
+    }
+
+
+    @media(max-width:600px){
+
+      .checkout-main{
+
+        padding-top:18px;
+
+        padding-bottom:50px;
+      }
+
+      .form-card{
+
+        padding:18px;
+
+        border-radius:18px;
+      }
+
+      .checkout-main .form-grid{
+
+        grid-template-columns:1fr;
+
+        gap:0;
+      }
+
+      .payment-grid{
+
+        grid-template-columns:1fr;
+      }
+
+      .payment-option > span{
+
+        min-height:68px;
+      }
+
+      .promo-input{
+
+        gap:7px;
+      }
+
+      .promo-input .secondary-btn{
+
+        min-width:78px;
+      }
+
+      #checkout-summary{
+
+        padding:18px;
+
+        border-radius:18px;
+      }
+
+      .checkout-reassurance{
+
+        gap:7px;
+      }
+
+      .checkout-reassurance div{
+
+        padding:9px 5px;
+
+        font-size:8px;
+      }
+
+      .checkout-reassurance strong{
+
+        font-size:9px;
+      }
+
+    }
+
+
+    @media(max-width:380px){
+
+      .promo-input{
+
+        flex-direction:column;
+      }
+
+      .promo-input .secondary-btn{
+
+        width:100%;
+      }
+
+    }
+
+
+    @media(prefers-reduced-motion:reduce){
+
+      .payment-option,
+      .form-card input,
+      .form-card textarea,
+      .form-card select{
+
+        transition:none;
+      }
+
+    }
+
+  </style>
+
+</head>
+
+
+<body
+  data-page="checkout"
+  class="checkout-page">
+
+
+<!-- =========================================================
+     HEADER
+========================================================= -->
+
+<header class="site-header">
+
+  <div class="container header-inner">
+
+    <a
+      class="brand"
+      href="../index.html"
+      aria-label="FoodFleet Home">
+
+      <img
+        src="../assets/images/logo-mark.svg"
+        alt="FoodFleet logo">
+
+      <span>
+        Food<span>Fleet</span>
+      </span>
+
+    </a>
+
+
+    <nav
+      class="main-nav"
+      aria-label="Main navigation">
+
+      <a href="../index.html">
+        Home
+      </a>
+
+      <a href="restaurants.html">
+        Restaurants
+      </a>
+
+      <a href="orders.html">
+        My Orders
+      </a>
+
+    </nav>
+
+
+    <div class="header-actions">
+
+      <button
+        type="button"
+        class="location-chip"
+        data-location-btn
+        aria-label="Change delivery location">
+
+        <span>
+          ⌖
+        </span>
+
+        <span data-city>
+          Dhaka Division
+        </span>
+
+      </button>
+
+
+      <a
+        class="cart-link"
+        href="cart.html"
+        aria-label="Shopping cart">
+
+        <span>
+          🛒
+        </span>
+
+        <span
+          class="cart-badge"
+          data-cart-count>
+          0
+        </span>
+
+      </a>
+
+
+      <a
+        class="profile-link"
+        href="profile.html"
+        data-profile-link
+        aria-label="Open profile">
+
+        SB
+
+      </a>
+
+
+      <button
+        type="button"
+        class="mobile-menu-btn"
+        data-mobile-menu
+        aria-label="Open navigation menu"
+        aria-expanded="false">
+
+        ☰
+
+      </button>
+
+    </div>
+
+  </div>
+
+</header>
+
+
+<!-- =========================================================
+     MAIN
+========================================================= -->
+
+<main>
+
+
+  <!-- HERO -->
+
+  <section class="page-hero compact checkout-hero">
+
+    <div class="container">
+
+      <span class="eyebrow">
+        Almost there
+      </span>
+
+      <h1>
+        Let’s get this delicious.
+      </h1>
+
+      <p>
+        Tell us where to deliver and how you’d like to pay.
+      </p>
+
+    </div>
+
+  </section>
+
+
+  <!-- CHECKOUT -->
+
+  <section class="section checkout-main">
+
+    <div class="container">
+
+      <div class="checkout-layout">
+
+
+        <!-- =================================================
+             FORM
+        ================================================== -->
+
+        <div class="form-card">
+
+          <form id="checkout-form">
+
+
+            <!-- DELIVERY -->
+
+            <div class="form-section">
+
+              <h3>
+                Delivery details
+              </h3>
+
+
+              <div class="form-grid">
+
+                <label>
+
+                  Full Name
+
+                  <input
+                    id="checkout-name"
+                    type="text"
+                    autocomplete="name"
+                    required
+                    placeholder="Enter your full name">
+
+                </label>
+
+
+                <label>
+
+                  Mobile Number
+
+                  <input
+                    id="checkout-mobile"
+                    type="tel"
+                    inputmode="numeric"
+                    autocomplete="tel"
+                    pattern="01[3-9][0-9]{8}"
+                    maxlength="11"
+                    required
+                    placeholder="01XXXXXXXXX">
+
+                </label>
+
+              </div>
+
+
+              <label>
+
+                Delivery Address
+
+                <textarea
+                  id="checkout-address"
+                  rows="3"
+                  autocomplete="street-address"
+                  required
+                  placeholder="House, road, area"></textarea>
+
+              </label>
+
+
+              <div class="form-grid">
+
+                <label>
+
+                  Division
+
+                  <select
+                    id="checkout-division"
+                    required>
+
+                    <option value="">
+                      Select division
+                    </option>
+
+                  </select>
+
+                </label>
+
+              </div>
+
+            </div>
+
+
+            <!-- PAYMENT -->
+
+            <div class="form-section">
+
+              <h3>
+                Payment method
+              </h3>
+
+
+              <div class="payment-grid">
+
+
+                <!-- CASH -->
+
+                <label class="payment-option">
+
+                  <input
+                    type="radio"
+                    name="payment"
+                    value="Cash on Delivery"
+                    checked>
+
+                  <span>
+
+                    <span class="payment-icon">
+                      💵
+                    </span>
+
+                    <span>
+
+                      <b>
+                        Cash on Delivery
+                      </b>
+
+                      <small>
+                        Pay when it arrives
+                      </small>
+
+                    </span>
+
+                  </span>
+
+                </label>
+
+
+                <!-- BKASH -->
+
+                <label class="payment-option">
+
+                  <input
+                    type="radio"
+                    name="payment"
+                    value="bKash">
+
+                  <span>
+
+                    <span class="payment-icon">
+
+                      <img
+                        src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSJ1rtfCnfD5e8-pYotJAotDHABGRRzZH3erLUPmWbYdg&s=10"
+                        alt="bKash"
+                        class="payment-logo">
+
+                    </span>
+
+                    <span>
+
+                      <b>
+                        bKash
+                      </b>
+
+                      <small>
+                        Demo payment
+                      </small>
+
+                    </span>
+
+                  </span>
+
+                </label>
+
+
+                <!-- NAGAD -->
+
+                <label class="payment-option">
+
+                  <input
+                    type="radio"
+                    name="payment"
+                    value="Nagad">
+
+                  <span>
+
+                    <span class="payment-icon">
+
+                      <img
+                        src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTsuPur2VVT0qzNUyD81bUI9n-zrRtOaOOSuCqeJ1Xxjw&s=10"
+                        alt="Nagad"
+                        class="payment-logo">
+
+                    </span>
+
+                    <span>
+
+                      <b>
+                        Nagad
+                      </b>
+
+                      <small>
+                        Demo payment
+                      </small>
+
+                    </span>
+
+                  </span>
+
+                </label>
+
+
+                <!-- CARD -->
+
+                <label class="payment-option">
+
+                  <input
+                    type="radio"
+                    name="payment"
+                    value="Card">
+
+                  <span>
+
+                    <span class="payment-icon">
+                      💳
+                    </span>
+
+                    <span>
+
+                      <b>
+                        Card
+                      </b>
+
+                      <small>
+                        Demo payment
+                      </small>
+
+                    </span>
+
+                  </span>
+
+                </label>
+
+
+              </div>
+
+            </div>
+
+
+            <!-- PROMO -->
+
+            <div class="form-section">
+
+              <h3>
+                Promo code
+              </h3>
+
+
+              <div class="promo-input">
+
+                <input
+                  id="promo-code"
+                  type="text"
+                  maxlength="20"
+                  autocomplete="off"
+                  placeholder="Try FLEET100">
+
+
+                <button
+                  type="button"
+                  id="apply-promo"
+                  class="secondary-btn">
+
+                  Apply
+
+                </button>
+
+              </div>
+
+
+              <div
+                id="promo-message"
+                class="form-message"
+                aria-live="polite">
+              </div>
+
+            </div>
+
+
+            <!-- ORDER -->
+
+            <button
+              class="primary-btn full-btn"
+              type="submit">
+
+              Place order ·
+
+              <span id="checkout-total">
+                ৳0
+              </span>
+
+            </button>
+
+
+            <p class="demo-note">
+
+              🔒 Demo only: payment and authentication
+              are simulated in your browser.
+
+            </p>
+
+          </form>
+
+
+          <!-- REASSURANCE -->
+
+          <div class="checkout-reassurance">
+
+            <div>
+
+              <strong>
+                🔒 Secure
+              </strong>
+
+              Browser demo
+
+            </div>
+
+
+            <div>
+
+              <strong>
+                🚴 Delivery
+              </strong>
+
+              Local fleet
+
+            </div>
+
+
+            <div>
+
+              <strong>
+                💵 Flexible
+              </strong>
+
+              Multiple payment
+
+            </div>
+
+          </div>
+
+        </div>
+
+
+        <!-- =================================================
+             SUMMARY
+        ================================================== -->
+
+        <aside
+          id="checkout-summary"
+          class="summary-card"
+          aria-label="Checkout summary">
+
+          <!-- Generated by checkout.js -->
+
+        </aside>
+
+
+      </div>
+
+    </div>
+
+  </section>
+
+</main>
+
+
+<!-- =========================================================
+     FOOTER
+========================================================= -->
+
+<footer class="footer">
+
+  <div class="container footer-grid">
+
+
+    <div>
+
+      <a
+        class="brand footer-brand"
+        href="../index.html">
+
+        <img
+          src="../assets/images/logo-mark.svg"
+          alt="FoodFleet logo">
+
+        <span>
+          Food<span>Fleet</span>
+        </span>
+
+      </a>
+
+
+      <p>
+        Your neighborhood food,<br>
+        delivered with care.
+      </p>
+
+    </div>
+
+
+    <div>
+
+      <h4>
+        FoodFleet
+      </h4>
+
+      <a href="restaurants.html">
+        Restaurants
+      </a>
+
+      <a href="../index.html#offers">
+        Offers
+      </a>
+
+      <a href="orders.html">
+        Orders
+      </a>
+
+      <a href="profile.html">
+        Profile
+      </a>
+
+    </div>
+
+
+    <div>
+
+      <h4>
+        Help
+      </h4>
+
+      <a href="orders.html">
+        Order tracking
+      </a>
+
+      <a href="profile.html">
+        Profile
+      </a>
+
+      <a href="restaurants.html">
+        Delivery info
+      </a>
+
+    </div>
+
+
+    <div>
+
+      <h4>
+        We deliver in
+      </h4>
+
+      <p>
+        Dhaka<br>
+        Chattogram<br>
+        Sylhet<br>
+        Rajshahi<br>
+        Khulna<br>
+        Barishal<br>
+        Rangpur<br>
+        Mymensingh
+      </p>
+
+    </div>
+
+  </div>
+
+
+  <div class="footer-bottom">
+
+    <span>
+      © 2026 FoodFleet. Demo project.
+    </span>
+
+    <span>
+      Made for Bangladesh 🇧🇩
+    </span>
+
+  </div>
+
+</footer>
+
+
+<!-- =========================================================
+     GLOBAL UI
+========================================================= -->
+
+<div
+  id="toast-root"
+  class="toast-root">
+</div>
+
+
+<div id="ai-root"></div>
+
+
+<!-- =========================================================
+     JAVASCRIPT
+========================================================= -->
+
+<script src="../js/data.js"></script>
+<script src="../js/app.js"></script>
+<script src="../js/checkout.js"></script>
+<script src="../js/ai.js"></script>
+
+
+</body>
+
+</html>

@@ -1,0 +1,709 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<title>Create Account · FoodFleet</title>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#f05a35">
+<meta name="description" content="Create your FoodFleet account and enjoy food delivery across Bangladesh.">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet">
+
+<link rel="stylesheet" href="../css/style.css">
+<link rel="stylesheet" href="../css/components.css">
+<link rel="stylesheet" href="../css/responsive.css">
+
+<style>
+.register-page .auth-page{
+  min-height:100vh;
+  display:flex;
+  flex-direction:column;
+}
+
+
+.register-page .auth-shell{
+  flex:1;
+}
+
+.register-page .auth-card{
+  animation:registerCardIn .55s ease both;
+}
+
+.register-page .auth-art{
+  animation:registerArtIn .65s ease both;
+}
+
+.register-page .auth-art-image{
+  overflow:hidden;
+  border-radius:24px;
+  margin-top:26px;
+  box-shadow:0 20px 55px rgba(20,20,20,.16);
+}
+
+.register-page .auth-art-image img{
+  width:100%;
+  height:280px;
+  object-fit:cover;
+  display:block;
+  transition:transform .5s ease;
+}
+
+.register-page .auth-art-image:hover img{
+  transform:scale(1.04);
+}
+
+.register-page .optional-fields{
+  margin-top:4px;
+  border:1px solid rgba(30,30,30,.09);
+  border-radius:16px;
+  overflow:hidden;
+  background:#faf9f7;
+}
+
+.register-page .optional-fields summary{
+  cursor:pointer;
+  padding:14px 16px;
+  font-weight:600;
+  color:#333;
+  list-style:none;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+}
+
+.register-page .optional-fields summary::-webkit-details-marker{
+  display:none;
+}
+
+.register-page .optional-fields summary::after{
+  content:"+";
+  font-size:20px;
+  font-weight:400;
+  transition:transform .2s ease;
+}
+
+.register-page .optional-fields[open] summary::after{
+  transform:rotate(45deg);
+}
+
+.register-page .optional-fields-body{
+  padding:0 16px 16px;
+  display:grid;
+  gap:14px;
+}
+
+.register-page .field-note{
+  display:inline-block;
+  margin-left:5px;
+  font-size:11px;
+  font-weight:500;
+  color:#999;
+}
+
+.register-page .auth-card form{
+  display:flex;
+  flex-direction:column;
+  gap:16px;
+}
+
+.register-page .auth-card label{
+  display:flex;
+  flex-direction:column;
+  gap:7px;
+}
+
+.register-page .auth-card input,
+.register-page .auth-card textarea{
+  width:100%;
+}
+
+.register-page .auth-card textarea{
+  resize:vertical;
+  min-height:82px;
+}
+
+.register-page .auth-card input:focus,
+.register-page .auth-card textarea:focus{
+  outline:none;
+  border-color:#f05a35;
+  box-shadow:0 0 0 4px rgba(240,90,53,.10);
+}
+
+.register-page .full-btn{
+  margin-top:2px;
+  min-height:50px;
+}
+
+.register-page .auth-switch{
+  margin-top:20px;
+}
+
+.register-page .register-benefits{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:10px;
+  margin-top:20px;
+}
+
+.register-page .register-benefit{
+  padding:12px;
+  border:1px solid rgba(255,255,255,.14);
+  border-radius:14px;
+  background:rgba(255,255,255,.07);
+  backdrop-filter:blur(10px);
+}
+
+.register-page .register-benefit strong{
+  display:block;
+  font-size:13px;
+  margin-bottom:3px;
+}
+
+.register-page .register-benefit span{
+  font-size:11px;
+  opacity:.72;
+}
+/* =========================
+   REGISTER FORM FIX
+========================= */
+
+.register-page .auth-card label{
+  display:flex;
+  flex-direction:column;
+  gap:7px;
+  color:#403731;
+  font-size:12px;
+  font-weight:700;
+}
+
+.register-page .auth-card .form-grid{
+  display:grid;
+  grid-template-columns:repeat(2,minmax(0,1fr));
+  gap:14px;
+}
+
+.register-page .auth-card input,
+.register-page .auth-card textarea{
+  display:block;
+  width:100%;
+  box-sizing:border-box;
+  padding:12px 13px;
+  border:1px solid #ded6cf;
+  border-radius:11px;
+  background:#fff;
+  color:#302923;
+  font-family:inherit;
+  font-size:13px;
+  font-weight:500;
+  line-height:1.4;
+  transition:
+    border-color .2s ease,
+    box-shadow .2s ease,
+    background .2s ease;
+}
+
+.register-page .auth-card input{
+  height:45px;
+}
+
+.register-page .auth-card textarea{
+  min-height:88px;
+  resize:vertical;
+}
+
+.register-page .auth-card input::placeholder,
+.register-page .auth-card textarea::placeholder{
+  color:#aaa19a;
+  font-weight:400;
+}
+
+.register-page .auth-card input:hover,
+.register-page .auth-card textarea:hover{
+  border-color:#d1c6bd;
+}
+
+.register-page .auth-card input:focus,
+.register-page .auth-card textarea:focus{
+  outline:none;
+  border-color:#f05a35;
+  background:#fff;
+  box-shadow:0 0 0 4px rgba(240,90,53,.09);
+}
+
+.register-page .optional-fields{
+  background:#faf8f6;
+}
+
+.register-page .optional-fields-body{
+  display:grid;
+  gap:14px;
+}
+
+.register-page .full-btn{
+  width:100%;
+  min-height:50px;
+}
+
+
+/* ---------- MOBILE ---------- */
+
+@media(max-width:600px){
+
+  .register-page .auth-card .form-grid{
+    grid-template-columns:1fr;
+    gap:16px;
+  }
+
+  .register-page .auth-card input{
+    height:44px;
+  }
+
+}
+/* =========================
+   REGISTER ONLY
+========================= */
+
+.register-page .auth-header,
+.register-page .auth-art,
+.register-page > main + .footer{
+  display:none;
+}
+
+.register-page .auth-page{
+  min-height:100vh;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  padding:30px 20px;
+}
+
+.register-page .auth-shell{
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  width:100%;
+  flex:none;
+}
+
+.register-page .auth-card{
+  width:100%;
+  max-width:420px;
+  margin:0;
+  box-shadow:0 20px 55px rgba(30,20,15,.10);
+}
+
+@media(max-width:600px){
+
+  .register-page .auth-page{
+    padding:20px 14px;
+  }
+
+  .register-page .auth-card{
+    max-width:100%;
+  }
+
+}
+@keyframes registerCardIn{
+  from{
+    opacity:0;
+    transform:translateY(18px);
+  }
+  to{
+    opacity:1;
+    transform:translateY(0);
+  }
+}
+
+@keyframes registerArtIn{
+  from{
+    opacity:0;
+    transform:translateX(-18px);
+  }
+  to{
+    opacity:1;
+    transform:translateX(0);
+  }
+}
+
+@media(max-width:850px){
+  .register-page .register-benefits{
+    grid-template-columns:1fr;
+  }
+
+  .register-page .auth-art-image img{
+    height:240px;
+  }
+}
+
+@media(max-width:600px){
+  .register-page .auth-art-image{
+    margin-top:20px;
+  }
+
+  .register-page .auth-art-image img{
+    height:210px;
+  }
+
+  .register-page .form-grid{
+    grid-template-columns:1fr;
+  }
+
+  .register-page .register-benefits{
+    display:none;
+  }
+}
+
+@media(prefers-reduced-motion:reduce){
+  .register-page .auth-card,
+  .register-page .auth-art{
+    animation:none;
+  }
+
+  .register-page .auth-art-image img{
+    transition:none;
+  }
+}
+</style>
+</head>
+
+<body data-page="register" class="register-page">
+
+<main>
+
+  <div class="auth-page">
+
+    <header class="auth-header">
+
+      <a class="brand" href="../index.html">
+        <img
+          src="../assets/images/logo-mark.svg"
+          alt="FoodFleet logo">
+
+        <span>
+          Food<span>Fleet</span>
+        </span>
+      </a>
+
+      <a href="../index.html" class="text-link">
+        ← Back home
+      </a>
+
+    </header>
+
+
+    <div class="auth-shell">
+
+      <!-- Register visual -->
+      <div class="auth-art">
+
+        <span class="eyebrow">
+          Join the fleet
+        </span>
+
+        <h1>
+          Your next favorite meal starts here.
+        </h1>
+
+        <p>
+          Create your FoodFleet account and keep your
+          orders, favorites and delivery details in one place.
+        </p>
+
+        <div class="register-benefits">
+
+          <div class="register-benefit">
+            <strong>🍔 Discover</strong>
+            <span>Find local favorites</span>
+          </div>
+
+          <div class="register-benefit">
+            <strong>❤️ Save</strong>
+            <span>Keep your favorites</span>
+          </div>
+
+          <div class="register-benefit">
+            <strong>🚴 Track</strong>
+            <span>Follow your orders</span>
+          </div>
+
+        </div>
+
+        <div class="auth-art-image">
+
+          <img
+            src="../assets/images/food/register-food.jpg"
+            alt="Delicious food from FoodFleet"
+            onerror="imageFallback(this)">
+
+        </div>
+
+      </div>
+
+
+      <!-- Register form -->
+      <div class="auth-card">
+
+        <span class="eyebrow">
+          FoodFleet account
+        </span>
+
+        <h2>
+          Create account
+        </h2>
+
+        <p>
+          Join FoodFleet and start discovering great food.
+        </p>
+
+
+        <form id="register-form">
+
+          <label>
+            Full Name
+
+            <input
+              id="register-name"
+              type="text"
+              autocomplete="name"
+              required
+              minlength="2"
+              placeholder="Enter your full name">
+          </label>
+
+
+          <label>
+            Mobile Number
+
+            <input
+              id="register-mobile"
+              type="tel"
+              inputmode="numeric"
+              autocomplete="tel"
+              pattern="01[3-9][0-9]{8}"
+              maxlength="11"
+              required
+              placeholder="01XXXXXXXXX">
+          </label>
+
+
+          <div class="form-grid">
+
+            <label>
+              Password
+
+              <input
+                id="register-password"
+                type="password"
+                autocomplete="new-password"
+                minlength="6"
+                required
+                placeholder="Minimum 6 characters">
+            </label>
+
+            <label>
+              Confirm Password
+
+              <input
+                id="register-confirm"
+                type="password"
+                autocomplete="new-password"
+                minlength="6"
+                required
+                placeholder="Re-enter password">
+            </label>
+
+          </div>
+
+
+          <details class="optional-fields">
+
+            <summary>
+              Add more profile details
+            </summary>
+
+            <div class="optional-fields-body">
+
+              <label>
+                NID Number
+                <span class="field-note">Demo field</span>
+
+                <input
+                  id="register-nid"
+                  type="text"
+                  inputmode="numeric"
+                  placeholder="Optional">
+              </label>
+
+
+              <label>
+                Date of Birth
+
+                <input
+                  id="register-dob"
+                  type="date">
+              </label>
+
+
+              <label>
+                Delivery Address
+
+                <textarea
+                  id="register-address"
+                  rows="3"
+                  placeholder="Example: House 12, Road 5, Dhanmondi, Dhaka"></textarea>
+              </label>
+
+            </div>
+
+          </details>
+
+
+          <div
+            id="register-message"
+            class="form-message"
+            aria-live="polite">
+          </div>
+
+
+          <button
+            class="primary-btn full-btn"
+            type="submit">
+            Create account
+          </button>
+
+        </form>
+
+
+        <p class="auth-switch">
+          Already have an account?
+          <a href="login.html">
+            Log in
+          </a>
+        </p>
+
+      </div>
+
+    </div>
+
+  </div>
+
+</main>
+
+
+<footer class="footer">
+
+  <div class="footer-grid">
+
+    <div>
+
+      <a class="brand footer-brand" href="../index.html">
+
+        <img
+          src="../assets/images/logo-mark.svg"
+          alt="FoodFleet logo">
+
+        <span>
+          Food<span>Fleet</span>
+        </span>
+
+      </a>
+
+      <p>
+        Your neighborhood food,<br>
+        delivered with care.
+      </p>
+
+    </div>
+
+
+    <div>
+
+      <h4>FoodFleet</h4>
+
+      <a href="restaurants.html">
+        Restaurants
+      </a>
+
+      <a href="../index.html#offers">
+        Offers
+      </a>
+
+      <a href="orders.html">
+        Orders
+      </a>
+
+      <a href="profile.html">
+        Profile
+      </a>
+
+    </div>
+
+
+    <div>
+
+      <h4>Help</h4>
+
+      <a href="#">
+        Support
+      </a>
+
+      <a href="#">
+        Delivery Info
+      </a>
+
+      <a href="#">
+        Terms
+      </a>
+
+    </div>
+
+
+    <div>
+
+      <h4>We deliver in</h4>
+
+      <p>
+        Dhaka<br>
+        Chattogram<br>
+        Sylhet<br>
+        Rajshahi<br>
+        Khulna<br>
+        Barishal<br>
+        Rangpur<br>
+        Mymensingh
+      </p>
+
+    </div>
+
+  </div>
+
+
+  <div class="footer-bottom">
+
+    <span>
+      © 2026 FoodFleet. Demo project.
+    </span>
+
+    <span>
+      Made for Bangladesh 🇧🇩
+    </span>
+
+  </div>
+
+</footer>
+
+
+<div id="toast-root" class="toast-root"></div>
+<div id="ai-root"></div>
+
+
+<!-- app.js MUST load before data.js -->
+<script src="../js/app.js"></script>
+<script src="../js/data.js"></script>
+<script src="../js/auth.js"></script>
+
+</body>
+</html>

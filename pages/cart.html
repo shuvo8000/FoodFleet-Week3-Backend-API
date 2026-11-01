@@ -1,0 +1,2317 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#f05a35">
+
+  <title>Cart · FoodFleet</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+  <link
+    href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700;800;900&family=Playfair+Display:wght@600;700&display=swap"
+    rel="stylesheet">
+
+  <link rel="stylesheet" href="../css/style.css">
+  <link rel="stylesheet" href="../css/components.css">
+  <link rel="stylesheet" href="../css/responsive.css">
+
+
+  <style>
+
+/* =========================================================
+   CART PAGE
+========================================================= */
+
+body[data-page="cart"]{
+  background:#fffaf7;
+  color:#29231f;
+}
+
+
+/* =========================================================
+   HEADER
+========================================================= */
+
+body[data-page="cart"] .site-header{
+  position:relative !important;
+  z-index:1000 !important;
+
+  width:100% !important;
+  height:72px !important;
+  min-height:72px !important;
+
+  background:rgba(255,255,255,.97) !important;
+  border-bottom:1px solid #eee5df !important;
+
+  backdrop-filter:blur(12px);
+  -webkit-backdrop-filter:blur(12px);
+
+  overflow:visible !important;
+}
+
+body[data-page="cart"] .site-header .nav-wrap{
+  position:relative !important;
+
+  width:min(1200px,calc(100% - 40px)) !important;
+  max-width:1200px !important;
+
+  height:72px !important;
+  min-height:72px !important;
+
+  margin:0 auto !important;
+  padding:0 !important;
+
+  display:block !important;
+
+  overflow:visible !important;
+}
+
+
+/* =========================================================
+   LOGO
+========================================================= */
+
+body[data-page="cart"] .site-header .brand{
+  position:absolute !important;
+
+  left:0 !important;
+  top:50% !important;
+
+  transform:translateY(-50%) !important;
+
+  display:flex !important;
+  align-items:center !important;
+
+  gap:9px !important;
+
+  width:max-content !important;
+  height:auto !important;
+
+  margin:0 !important;
+  padding:0 !important;
+
+  white-space:nowrap !important;
+
+  text-decoration:none !important;
+
+  z-index:5 !important;
+}
+
+body[data-page="cart"] .site-header .brand img{
+  display:block !important;
+
+  width:34px !important;
+  height:34px !important;
+
+  min-width:34px !important;
+  min-height:34px !important;
+
+  margin:0 !important;
+  padding:0 !important;
+}
+
+body[data-page="cart"] .site-header .brand > span{
+  display:block !important;
+
+  width:max-content !important;
+
+  margin:0 !important;
+  padding:0 !important;
+
+  color:#25201d !important;
+
+  font-size:17px !important;
+  font-weight:900 !important;
+
+  line-height:1 !important;
+
+  white-space:nowrap !important;
+}
+
+body[data-page="cart"] .site-header .brand > span > span{
+  color:#f05a35 !important;
+}
+
+
+/* =========================================================
+   CENTER NAVIGATION
+========================================================= */
+
+body[data-page="cart"] .site-header .main-nav{
+  position:absolute !important;
+
+  left:50% !important;
+  top:50% !important;
+
+  transform:translate(-50%,-50%) !important;
+
+  display:flex !important;
+  flex-direction:row !important;
+
+  align-items:center !important;
+  justify-content:center !important;
+
+  width:max-content !important;
+  height:42px !important;
+
+  margin:0 !important;
+  padding:0 !important;
+
+  gap:30px !important;
+
+  flex-wrap:nowrap !important;
+
+  white-space:nowrap !important;
+
+  z-index:4 !important;
+}
+
+body[data-page="cart"] .site-header .main-nav a{
+  display:flex !important;
+  align-items:center !important;
+  justify-content:center !important;
+
+  width:max-content !important;
+  min-width:max-content !important;
+
+  height:42px !important;
+
+  margin:0 !important;
+  padding:0 !important;
+
+  color:#5d554f !important;
+
+  font-family:"DM Sans",sans-serif !important;
+  font-size:12px !important;
+  font-weight:800 !important;
+
+  line-height:1 !important;
+
+  text-decoration:none !important;
+
+  white-space:nowrap !important;
+
+  flex:0 0 auto !important;
+
+  transition:
+    color .2s ease,
+    background .2s ease;
+}
+
+body[data-page="cart"] .site-header .main-nav a:hover{
+  color:#ff642d !important;
+}
+
+
+/* =========================================================
+   RIGHT ACTIONS
+========================================================= */
+
+body[data-page="cart"] .site-header .nav-actions{
+  position:absolute !important;
+
+  right:0 !important;
+  top:50% !important;
+
+  transform:translateY(-50%) !important;
+
+  display:flex !important;
+  flex-direction:row !important;
+
+  align-items:center !important;
+  justify-content:flex-end !important;
+
+  width:max-content !important;
+  height:42px !important;
+
+  margin:0 !important;
+  padding:0 !important;
+
+  gap:8px !important;
+
+  flex-wrap:nowrap !important;
+
+  white-space:nowrap !important;
+
+  z-index:5 !important;
+}
+
+
+/* =========================================================
+   LOCATION
+========================================================= */
+
+body[data-page="cart"] .site-header .location-chip{
+  position:relative !important;
+
+  display:flex !important;
+  flex-direction:row !important;
+
+  align-items:center !important;
+  justify-content:center !important;
+
+  width:142px !important;
+  min-width:142px !important;
+  max-width:142px !important;
+
+  height:42px !important;
+  min-height:42px !important;
+
+  margin:0 !important;
+  padding:0 12px !important;
+
+  gap:7px !important;
+
+  border:1px solid #eadfd8 !important;
+  border-radius:12px !important;
+
+  background:#fff !important;
+
+  color:#3b332e !important;
+
+  font-family:"DM Sans",sans-serif !important;
+  font-size:11px !important;
+  font-weight:800 !important;
+
+  line-height:1 !important;
+
+  white-space:nowrap !important;
+
+  flex:0 0 142px !important;
+
+  cursor:pointer !important;
+
+  transition:
+    border-color .2s ease,
+    box-shadow .2s ease,
+    transform .2s ease;
+}
+
+body[data-page="cart"] .site-header .location-chip:hover{
+  border-color:#ffc6ae !important;
+
+  box-shadow:0 6px 18px rgba(255,107,44,.08) !important;
+
+  transform:translateY(-1px);
+}
+
+body[data-page="cart"] .site-header .location-chip span{
+  display:block !important;
+
+  width:max-content !important;
+  min-width:max-content !important;
+
+  margin:0 !important;
+  padding:0 !important;
+
+  white-space:nowrap !important;
+}
+
+
+/* =========================================================
+   CART ICON
+========================================================= */
+
+body[data-page="cart"] .site-header .icon-link{
+  position:relative !important;
+
+  display:grid !important;
+  place-items:center !important;
+
+  width:42px !important;
+  min-width:42px !important;
+  max-width:42px !important;
+
+  height:42px !important;
+  min-height:42px !important;
+
+  margin:0 !important;
+  padding:0 !important;
+
+  border:1px solid #eadfd8 !important;
+  border-radius:12px !important;
+
+  background:#fff !important;
+
+  color:#302923 !important;
+
+  font-size:17px !important;
+
+  line-height:1 !important;
+
+  text-decoration:none !important;
+
+  flex:0 0 42px !important;
+
+  transition:
+    border-color .2s ease,
+    background .2s ease,
+    transform .2s ease;
+}
+
+body[data-page="cart"] .site-header .icon-link:hover{
+  border-color:#ffc6ae !important;
+  background:#fff8f4 !important;
+  transform:translateY(-1px);
+}
+
+
+/* =========================================================
+   CART BADGE
+========================================================= */
+
+body[data-page="cart"] .site-header .cart-badge{
+  position:absolute !important;
+
+  top:-5px !important;
+  right:-5px !important;
+
+  display:grid !important;
+  place-items:center !important;
+
+  min-width:17px !important;
+  width:auto !important;
+
+  height:17px !important;
+
+  margin:0 !important;
+  padding:0 4px !important;
+
+  border:2px solid #fff !important;
+  border-radius:999px !important;
+
+  background:#ff642d !important;
+  color:#fff !important;
+
+  font-size:8px !important;
+  font-weight:900 !important;
+
+  line-height:1 !important;
+}
+
+
+/* =========================================================
+   PROFILE
+========================================================= */
+
+body[data-page="cart"] .site-header .avatar-link{
+  display:grid !important;
+  place-items:center !important;
+
+  width:42px !important;
+  min-width:42px !important;
+  max-width:42px !important;
+
+  height:42px !important;
+  min-height:42px !important;
+
+  margin:0 !important;
+  padding:0 !important;
+
+  border:0 !important;
+  border-radius:12px !important;
+
+  background:#211e1c !important;
+  color:#fff !important;
+
+  font-family:"DM Sans",sans-serif !important;
+  font-size:10px !important;
+  font-weight:900 !important;
+
+  line-height:1 !important;
+
+  text-decoration:none !important;
+
+  white-space:nowrap !important;
+
+  flex:0 0 42px !important;
+
+  transition:
+    transform .2s ease,
+    box-shadow .2s ease;
+}
+
+body[data-page="cart"] .site-header .avatar-link:hover{
+  transform:translateY(-1px);
+
+  box-shadow:
+    0 7px 18px rgba(30,25,22,.16);
+}
+
+
+/* =========================================================
+   MOBILE MENU
+========================================================= */
+
+body[data-page="cart"] .site-header .mobile-menu-btn{
+  display:none !important;
+}
+
+
+/* =========================================================
+   HERO
+========================================================= */
+
+body[data-page="cart"] .cart-hero{
+  position:relative;
+
+  min-height:250px;
+
+  display:flex;
+  align-items:center;
+
+  overflow:hidden;
+
+  background:
+    radial-gradient(
+      circle at 72% 48%,
+      rgba(255,107,44,.10),
+      transparent 190px
+    ),
+    linear-gradient(
+      110deg,
+      #fffdfb 0%,
+      #fff8f3 58%,
+      #ffede3 100%
+    );
+}
+
+body[data-page="cart"] .cart-hero::before{
+  content:"";
+
+  position:absolute;
+
+  width:320px;
+  height:320px;
+
+  right:-115px;
+  top:-135px;
+
+  border-radius:50%;
+
+  background:rgba(255,218,201,.58);
+
+  pointer-events:none;
+}
+
+body[data-page="cart"] .cart-hero::after{
+  content:"";
+
+  position:absolute;
+
+  width:145px;
+  height:145px;
+
+  left:-85px;
+  bottom:-100px;
+
+  border-radius:50%;
+
+  background:rgba(255,226,210,.72);
+
+  pointer-events:none;
+}
+
+body[data-page="cart"] .cart-hero-inner{
+  position:relative;
+
+  z-index:2;
+
+  min-height:250px;
+
+  display:flex;
+
+  align-items:center;
+  justify-content:space-between;
+
+  gap:40px;
+}
+
+body[data-page="cart"] .cart-hero-copy{
+  max-width:700px;
+}
+
+body[data-page="cart"] .cart-hero-copy .eyebrow{
+  color:#ff642d;
+
+  font-size:10px;
+  font-weight:900;
+
+  letter-spacing:1.8px;
+  text-transform:uppercase;
+}
+
+body[data-page="cart"] .cart-hero-copy .eyebrow::before{
+  content:"";
+
+  display:inline-block;
+
+  width:17px;
+  height:2px;
+
+  margin-right:8px;
+
+  vertical-align:middle;
+
+  background:#ff642d;
+}
+
+body[data-page="cart"] .cart-hero-copy h1{
+  margin:13px 0 10px;
+
+  color:#171412;
+
+  font-family:
+    "Playfair Display",
+    Georgia,
+    serif;
+
+  font-size:clamp(50px,5.5vw,70px);
+
+  line-height:.93;
+
+  letter-spacing:-3px;
+}
+
+body[data-page="cart"] .cart-hero-copy h1 span{
+  color:#ff642d;
+}
+
+body[data-page="cart"] .cart-hero-copy p{
+  max-width:590px;
+
+  margin:0;
+
+  color:#756c66;
+
+  font-size:13px;
+
+  line-height:1.7;
+}
+
+
+/* =========================================================
+   HERO ART
+========================================================= */
+
+body[data-page="cart"] .cart-hero-side{
+  position:relative;
+
+  z-index:5;
+
+  display:flex;
+
+  flex-direction:column;
+
+  align-items:flex-end;
+
+  gap:14px;
+}
+
+body[data-page="cart"] .cart-mini-art{
+  display:flex;
+
+  align-items:center;
+
+  gap:10px;
+}
+
+body[data-page="cart"] .cart-mini-card{
+  width:50px;
+  height:50px;
+
+  display:grid;
+  place-items:center;
+
+  border:1px solid rgba(255,255,255,.9);
+
+  border-radius:16px;
+
+  background:rgba(255,255,255,.9);
+
+  box-shadow:
+    0 12px 28px rgba(60,35,20,.10);
+
+  font-size:22px;
+
+  transform:rotate(-6deg);
+
+  transition:
+    transform .2s ease,
+    box-shadow .2s ease;
+}
+
+body[data-page="cart"] .cart-mini-card:nth-child(2){
+  background:#fff5ef;
+  transform:rotate(5deg);
+}
+
+body[data-page="cart"] .cart-mini-card:nth-child(3){
+  transform:rotate(9deg);
+}
+
+body[data-page="cart"] .cart-mini-card:hover{
+  transform:translateY(-3px) rotate(0deg);
+
+  box-shadow:
+    0 15px 32px rgba(60,35,20,.13);
+}
+
+body[data-page="cart"] .cart-continue{
+  display:inline-flex;
+
+  align-items:center;
+  justify-content:center;
+
+  gap:7px;
+
+  min-height:44px;
+
+  padding:0 18px;
+
+  border:1px solid #efd8cc;
+
+  border-radius:999px;
+
+  background:#fff;
+
+  color:#403832;
+
+  font-size:11px;
+  font-weight:900;
+
+  text-decoration:none;
+
+  box-shadow:
+    0 9px 25px rgba(55,30,18,.07);
+
+  transition:.2s ease;
+}
+
+body[data-page="cart"] .cart-continue span{
+  color:#ff642d;
+  font-size:15px;
+}
+
+body[data-page="cart"] .cart-continue:hover{
+  color:#ff642d;
+
+  border-color:#ffc3a9;
+
+  transform:translateY(-2px);
+
+  box-shadow:
+    0 13px 28px rgba(55,30,18,.10);
+}
+
+
+/* =========================================================
+   CART CONTENT
+========================================================= */
+
+body[data-page="cart"] .cart-section{
+  min-height:620px;
+
+  padding:55px 0 75px;
+}
+
+body[data-page="cart"] .cart-layout{
+  display:grid;
+
+  grid-template-columns:
+    minmax(0,1fr)
+    365px;
+
+  gap:32px;
+
+  align-items:start;
+}
+
+body[data-page="cart"] .cart-left{
+  min-width:0;
+}
+
+body[data-page="cart"] .cart-section-heading{
+  margin-bottom:19px;
+}
+
+body[data-page="cart"] .cart-section-heading .eyebrow{
+  color:#ff642d;
+
+  font-size:10px;
+  font-weight:900;
+
+  letter-spacing:1.6px;
+}
+
+body[data-page="cart"] .cart-section-heading .eyebrow::before{
+  content:"";
+
+  display:inline-block;
+
+  width:17px;
+  height:2px;
+
+  margin-right:8px;
+
+  vertical-align:middle;
+
+  background:#ff642d;
+}
+
+body[data-page="cart"] .cart-section-heading h2{
+  margin:9px 0 0;
+
+  color:#201b18;
+
+  font-family:
+    "Playfair Display",
+    Georgia,
+    serif;
+
+  font-size:35px;
+
+  line-height:1;
+
+  letter-spacing:-1.5px;
+}
+
+
+/* =========================================================
+   CART LIST
+========================================================= */
+
+body[data-page="cart"] .cart-list,
+body[data-page="cart"] #cart-items{
+  display:flex;
+
+  flex-direction:column;
+
+  gap:13px;
+}
+
+
+/* =========================================================
+   CART ITEM
+========================================================= */
+
+body[data-page="cart"] .cart-item{
+  display:grid;
+
+  grid-template-columns:
+    105px
+    minmax(0,1fr)
+    auto;
+
+  align-items:center;
+
+  gap:18px;
+
+  min-height:112px;
+
+  padding:13px;
+
+  border:1px solid #e9ddd5;
+
+  border-radius:19px;
+
+  background:#fff;
+
+  box-shadow:
+    0 8px 25px rgba(45,28,18,.035);
+
+  transition:
+    transform .2s ease,
+    border-color .2s ease,
+    box-shadow .2s ease;
+}
+
+body[data-page="cart"] .cart-item:hover{
+  border-color:#dfcec2;
+
+  transform:translateY(-2px);
+
+  box-shadow:
+    0 15px 35px rgba(45,28,18,.065);
+}
+
+
+/* =========================================================
+   FOOD IMAGE
+========================================================= */
+
+body[data-page="cart"] .cart-item-image{
+  width:105px;
+  height:88px;
+
+  overflow:hidden;
+
+  border-radius:14px;
+
+  background:#f5eee8;
+}
+
+body[data-page="cart"] .cart-item-image img{
+  display:block;
+
+  width:100%;
+  height:100%;
+
+  object-fit:cover;
+
+  border-radius:14px;
+}
+
+
+/* =========================================================
+   FOOD INFORMATION
+========================================================= */
+
+body[data-page="cart"] .cart-item-main{
+  min-width:0;
+}
+
+body[data-page="cart"] .cart-item-category{
+  display:inline-block;
+
+  margin-bottom:5px;
+
+  color:#ff642d;
+
+  font-size:8px;
+
+  font-weight:900;
+
+  letter-spacing:1.1px;
+
+  text-transform:uppercase;
+}
+
+body[data-page="cart"] .cart-item-main h3{
+  margin:0 0 4px;
+
+  color:#27211d;
+
+  font-size:15px;
+
+  font-weight:900;
+
+  line-height:1.2;
+
+  white-space:nowrap;
+
+  overflow:hidden;
+
+  text-overflow:ellipsis;
+}
+
+body[data-page="cart"] .cart-item-main p{
+  margin:0 0 7px;
+
+  color:#91877f;
+
+  font-size:10px;
+
+  font-weight:600;
+
+  line-height:1.3;
+}
+
+body[data-page="cart"] .cart-item-main strong{
+  color:#302923;
+
+  font-size:14px;
+
+  font-weight:900;
+}
+
+
+/* =========================================================
+   ITEM ACTIONS
+========================================================= */
+
+body[data-page="cart"] .cart-item-actions{
+  display:flex;
+
+  align-items:center;
+
+  justify-content:flex-end;
+
+  gap:10px;
+
+  min-width:max-content;
+}
+
+body[data-page="cart"] .qty-control{
+  display:flex;
+
+  align-items:center;
+  justify-content:center;
+
+  width:91px;
+  min-width:91px;
+
+  height:38px;
+
+  overflow:hidden;
+
+  border:1px solid #e8ddd6;
+
+  border-radius:11px;
+
+  background:#fffaf7;
+}
+
+body[data-page="cart"] .qty-control button{
+  width:31px;
+  height:36px;
+
+  border:0;
+
+  background:transparent;
+
+  color:#4c433d;
+
+  font-family:inherit;
+
+  font-size:15px;
+
+  font-weight:900;
+
+  cursor:pointer;
+
+  transition:.15s ease;
+}
+
+body[data-page="cart"] .qty-control button:hover{
+  background:#fff0e8;
+
+  color:#ff642d;
+}
+
+body[data-page="cart"] .qty-control span{
+  width:29px;
+
+  color:#29231f;
+
+  text-align:center;
+
+  font-size:12px;
+
+  font-weight:900;
+}
+
+body[data-page="cart"] .cart-item-total{
+  min-width:60px;
+
+  color:#302923;
+
+  font-size:13px;
+
+  font-weight:900;
+
+  text-align:right;
+}
+
+body[data-page="cart"] .remove-btn{
+  min-height:35px;
+
+  padding:0 11px;
+
+  border:1px solid #eadfd8;
+
+  border-radius:10px;
+
+  background:#fff;
+
+  color:#8e837b;
+
+  font-family:inherit;
+
+  font-size:9px;
+
+  font-weight:800;
+
+  cursor:pointer;
+
+  transition:.2s ease;
+}
+
+body[data-page="cart"] .remove-btn:hover{
+  border-color:#f1b8a2;
+
+  background:#fff4ef;
+
+  color:#e6532d;
+}
+
+
+/* =========================================================
+   SECURITY
+========================================================= */
+
+body[data-page="cart"] .cart-security{
+  display:flex;
+
+  align-items:center;
+  justify-content:center;
+
+  gap:7px;
+
+  margin-top:17px;
+
+  color:#948a82;
+
+  font-size:9px;
+
+  font-weight:600;
+}
+
+body[data-page="cart"] .cart-security span{
+  color:#ff642d;
+
+  font-size:11px;
+}
+
+
+/* =========================================================
+   SUMMARY CARD
+========================================================= */
+
+body[data-page="cart"] #cart-summary{
+  position:sticky;
+
+  top:92px;
+
+  padding:23px;
+
+  border:1px solid #e8dcd4;
+
+  border-radius:23px;
+
+  background:#fff;
+
+  box-shadow:
+    0 18px 45px rgba(45,28,18,.075);
+}
+
+body[data-page="cart"] #cart-summary::before{
+  display:none !important;
+}
+
+
+/* =========================================================
+   SUMMARY HEADER
+========================================================= */
+
+body[data-page="cart"] #cart-summary .summary-head{
+  display:flex;
+
+  align-items:flex-start;
+  justify-content:space-between;
+
+  gap:12px;
+
+  margin-bottom:17px;
+}
+
+body[data-page="cart"] #cart-summary .summary-head > div{
+  min-width:0;
+}
+
+body[data-page="cart"] #cart-summary .summary-label{
+  display:block;
+
+  margin-bottom:6px;
+
+  color:#ff642d;
+
+  font-size:9px;
+
+  font-weight:900;
+
+  letter-spacing:1.5px;
+
+  text-transform:uppercase;
+}
+
+body[data-page="cart"] #cart-summary .summary-head h3{
+  margin:0;
+
+  color:#29231f;
+
+  font-size:19px;
+
+  font-weight:900;
+
+  line-height:1.2;
+}
+
+body[data-page="cart"] #cart-summary .summary-count{
+  display:inline-flex;
+
+  align-items:center;
+  justify-content:center;
+
+  min-width:42px;
+  min-height:24px;
+
+  padding:0 9px;
+
+  border-radius:999px;
+
+  background:#fff0e8;
+
+  color:#ed612f;
+
+  font-size:8px;
+
+  font-weight:900;
+
+  white-space:nowrap;
+}
+
+
+/* =========================================================
+   SUMMARY LINES
+========================================================= */
+
+body[data-page="cart"] #cart-summary .summary-lines{
+  display:flex;
+
+  flex-direction:column;
+
+  gap:11px;
+
+  padding:15px 0;
+
+  border-top:1px solid #eee5df;
+
+  border-bottom:1px solid #eee5df;
+}
+
+body[data-page="cart"] #cart-summary .summary-lines > span{
+  display:flex;
+
+  align-items:center;
+  justify-content:space-between;
+
+  gap:15px;
+
+  color:#7e746d;
+
+  font-size:11px;
+
+  font-weight:600;
+
+  line-height:1.3;
+}
+
+body[data-page="cart"] #cart-summary .summary-lines > span > span{
+  color:#7e746d;
+}
+
+body[data-page="cart"] #cart-summary .summary-lines b{
+  color:#39312c;
+
+  font-size:11px;
+
+  font-weight:800;
+
+  white-space:nowrap;
+}
+
+body[data-page="cart"] #cart-summary .discount-line,
+body[data-page="cart"] #cart-summary .discount-line > span,
+body[data-page="cart"] #cart-summary .discount-line b{
+  color:#19975a !important;
+}
+
+
+/* =========================================================
+   TOTAL
+========================================================= */
+
+body[data-page="cart"] #cart-summary .summary-total{
+  display:flex;
+
+  align-items:center;
+  justify-content:space-between;
+
+  gap:15px;
+
+  margin-top:13px;
+
+  padding:13px 14px;
+
+  border-radius:13px;
+
+  background:#fff0e8;
+}
+
+body[data-page="cart"] #cart-summary .summary-total span{
+  color:#3a302a;
+
+  font-size:11px;
+
+  font-weight:900;
+}
+
+body[data-page="cart"] #cart-summary .summary-total strong{
+  color:#ff642d !important;
+
+  font-size:22px;
+
+  font-weight:900;
+
+  white-space:nowrap;
+}
+
+
+/* =========================================================
+   PROMO
+========================================================= */
+
+body[data-page="cart"] .promo-hint,
+body[data-page="cart"] .promo-success{
+  display:flex;
+
+  align-items:center;
+
+  gap:10px;
+
+  margin-top:13px;
+
+  padding:11px;
+
+  border:1px solid #f0ddd3;
+
+  border-radius:13px;
+
+  background:#fffaf7;
+}
+
+body[data-page="cart"] .promo-success{
+  border-color:#d8efdf;
+
+  background:#f4fff8;
+}
+
+body[data-page="cart"] .promo-status-icon{
+  width:32px;
+  height:32px;
+
+  flex:0 0 32px;
+
+  display:grid;
+  place-items:center;
+
+  border-radius:9px;
+
+  background:#fff0e8;
+
+  color:#ff642d;
+
+  font-size:14px;
+
+  font-weight:900;
+}
+
+body[data-page="cart"] .promo-success .promo-status-icon{
+  background:#ddf6e6;
+
+  color:#159453;
+}
+
+body[data-page="cart"] .promo-hint > div,
+body[data-page="cart"] .promo-success > div{
+  min-width:0;
+}
+
+body[data-page="cart"] .promo-hint strong,
+body[data-page="cart"] .promo-success strong{
+  display:block;
+
+  color:#423831;
+
+  font-size:10px;
+
+  font-weight:900;
+
+  line-height:1.35;
+}
+
+body[data-page="cart"] .promo-hint small,
+body[data-page="cart"] .promo-success small{
+  display:block;
+
+  margin-top:3px;
+
+  color:#9a8e86;
+
+  font-size:8px;
+
+  line-height:1.4;
+}
+
+
+/* =========================================================
+   CHECKOUT
+========================================================= */
+
+body[data-page="cart"] #cart-summary .full-btn{
+  display:flex;
+
+  align-items:center;
+  justify-content:center;
+
+  width:100%;
+
+  min-height:48px;
+
+  margin-top:13px;
+
+  padding:0 14px;
+
+  border:0;
+
+  border-radius:12px;
+
+  background:#ff642d;
+
+  color:#fff;
+
+  font-family:inherit;
+
+  font-size:11px;
+
+  font-weight:900;
+
+  text-decoration:none;
+
+  box-shadow:
+    0 10px 22px rgba(255,107,44,.18);
+
+  transition:.2s ease;
+}
+
+body[data-page="cart"] #cart-summary .full-btn:hover{
+  background:#ed5928;
+
+  transform:translateY(-1px);
+
+  box-shadow:
+    0 14px 28px rgba(255,107,44,.23);
+}
+
+body[data-page="cart"] #cart-summary .full-btn span{
+  margin-left:5px;
+
+  color:#fff;
+
+  font-size:14px;
+}
+
+body[data-page="cart"] #cart-summary .summary-note{
+  margin:12px 0 0;
+
+  color:#9b9189;
+
+  font-size:9px;
+
+  line-height:1.55;
+
+  text-align:center;
+}
+
+
+/* =========================================================
+   BENEFITS
+========================================================= */
+
+body[data-page="cart"] .cart-benefits{
+  display:grid;
+
+  grid-template-columns:
+    repeat(3,minmax(0,1fr));
+
+  gap:13px;
+
+  margin-top:32px;
+}
+
+body[data-page="cart"] .cart-benefit{
+  min-height:76px;
+
+  display:flex;
+
+  align-items:center;
+  justify-content:center;
+
+  gap:10px;
+
+  padding:12px 16px;
+
+  border:1px solid #eadfd8;
+
+  border-radius:15px;
+
+  background:#fff;
+
+  box-shadow:
+    0 6px 20px rgba(45,28,18,.025);
+
+  transition:.2s ease;
+}
+
+body[data-page="cart"] .cart-benefit:hover{
+  border-color:#dfcec2;
+
+  transform:translateY(-2px);
+
+  box-shadow:
+    0 12px 28px rgba(45,28,18,.05);
+}
+
+body[data-page="cart"] .cart-benefit-icon{
+  width:37px;
+  height:37px;
+
+  flex:0 0 37px;
+
+  display:grid;
+  place-items:center;
+
+  border-radius:11px;
+
+  background:#fff0e8;
+
+  font-size:17px;
+}
+
+body[data-page="cart"] .cart-benefit strong{
+  display:block;
+
+  color:#39312c;
+
+  font-size:10px;
+
+  font-weight:900;
+}
+
+body[data-page="cart"] .cart-benefit span{
+  display:block;
+
+  margin-top:3px;
+
+  color:#9a9088;
+
+  font-size:8px;
+
+  line-height:1.3;
+}
+
+
+/* =========================================================
+   EMPTY CART
+========================================================= */
+
+body[data-page="cart"] #cart-items .empty-state{
+  padding:70px 25px;
+
+  border:1px dashed #ded2c9;
+
+  border-radius:23px;
+
+  background:#fff;
+
+  text-align:center;
+}
+
+body[data-page="cart"] #cart-items .empty-icon{
+  width:72px;
+  height:72px;
+
+  display:grid;
+  place-items:center;
+
+  margin:0 auto 17px;
+
+  border-radius:20px;
+
+  background:#fff0e8;
+
+  font-size:30px;
+}
+
+body[data-page="cart"] #cart-items .empty-state h2{
+  margin:0 0 8px;
+
+  color:#29221e;
+
+  font-size:22px;
+
+  font-weight:900;
+}
+
+body[data-page="cart"] #cart-items .empty-state p{
+  max-width:400px;
+
+  margin:0 auto 20px;
+
+  color:#8c827b;
+
+  font-size:12px;
+
+  line-height:1.7;
+}
+
+body[data-page="cart"] #cart-items .empty-state .primary-btn{
+  display:inline-flex;
+
+  align-items:center;
+  justify-content:center;
+
+  min-height:44px;
+
+  padding:0 18px;
+
+  border-radius:999px;
+
+  background:#ff642d;
+
+  color:#fff;
+
+  font-size:11px;
+
+  font-weight:900;
+
+  text-decoration:none;
+}
+
+
+/* =========================================================
+   RESPONSIVE - 1000
+========================================================= */
+
+@media(max-width:1000px){
+
+  body[data-page="cart"] .site-header .nav-wrap{
+    width:calc(100% - 30px) !important;
+  }
+
+  body[data-page="cart"] .site-header .main-nav{
+    gap:20px !important;
+  }
+
+  body[data-page="cart"] .site-header .main-nav a{
+    font-size:11px !important;
+  }
+
+  body[data-page="cart"] .site-header .location-chip{
+    width:125px !important;
+    min-width:125px !important;
+    flex-basis:125px !important;
+  }
+
+  body[data-page="cart"] .cart-layout{
+    grid-template-columns:
+      minmax(0,1fr)
+      320px;
+    gap:22px;
+  }
+
+  body[data-page="cart"] .cart-item{
+    grid-template-columns:
+      90px
+      minmax(0,1fr)
+      auto;
+  }
+
+  body[data-page="cart"] .cart-item-image{
+    width:90px;
+    height:78px;
+  }
+
+}
+
+
+/* =========================================================
+   RESPONSIVE - 780
+========================================================= */
+
+@media(max-width:780px){
+
+  body[data-page="cart"] .site-header{
+    height:66px !important;
+    min-height:66px !important;
+  }
+
+  body[data-page="cart"] .site-header .nav-wrap{
+    width:calc(100% - 28px) !important;
+
+    height:66px !important;
+    min-height:66px !important;
+  }
+
+  body[data-page="cart"] .site-header .main-nav{
+    display:none !important;
+  }
+
+  body[data-page="cart"] .site-header .nav-actions{
+    right:0 !important;
+  }
+
+  body[data-page="cart"] .site-header .mobile-menu-btn{
+    display:grid !important;
+
+    place-items:center !important;
+
+    width:40px !important;
+    height:40px !important;
+
+    margin:0 !important;
+    padding:0 !important;
+
+    border:1px solid #eadfd8 !important;
+
+    border-radius:11px !important;
+
+    background:#fff !important;
+
+    font-size:16px !important;
+
+    cursor:pointer !important;
+  }
+
+  body[data-page="cart"] .cart-hero{
+    min-height:0;
+
+    padding:43px 0 38px;
+  }
+
+  body[data-page="cart"] .cart-hero-inner{
+    min-height:0;
+
+    display:block;
+  }
+
+  body[data-page="cart"] .cart-hero-copy{
+    max-width:100%;
+  }
+
+  body[data-page="cart"] .cart-hero-copy h1{
+    font-size:50px;
+  }
+
+  body[data-page="cart"] .cart-hero-side{
+    align-items:flex-start;
+
+    margin-top:20px;
+  }
+
+  body[data-page="cart"] .cart-layout{
+    grid-template-columns:1fr;
+  }
+
+  body[data-page="cart"] #cart-summary{
+    position:static;
+  }
+
+  body[data-page="cart"] .cart-benefits{
+    grid-template-columns:1fr;
+  }
+
+}
+
+
+/* =========================================================
+   RESPONSIVE - 600
+========================================================= */
+
+@media(max-width:600px){
+
+  body[data-page="cart"] .site-header .location-chip{
+    width:auto !important;
+    min-width:auto !important;
+
+    flex:0 0 auto !important;
+  }
+
+  body[data-page="cart"] .site-header .avatar-link,
+  body[data-page="cart"] .site-header .icon-link{
+    width:40px !important;
+    min-width:40px !important;
+
+    height:40px !important;
+  }
+
+  body[data-page="cart"] .cart-section{
+    padding:40px 0 60px;
+  }
+
+  body[data-page="cart"] .cart-section-heading h2{
+    font-size:30px;
+  }
+
+  body[data-page="cart"] .cart-item{
+    grid-template-columns:
+      78px
+      minmax(0,1fr);
+
+    gap:12px;
+
+    padding:11px;
+  }
+
+  body[data-page="cart"] .cart-item-image{
+    width:78px;
+    height:72px;
+  }
+
+  body[data-page="cart"] .cart-item-main h3{
+    font-size:13px;
+  }
+
+  body[data-page="cart"] .cart-item-actions{
+    grid-column:2;
+
+    display:flex;
+
+    align-items:center;
+    justify-content:flex-start;
+
+    flex-wrap:wrap;
+
+    gap:8px;
+
+    margin-top:2px;
+  }
+
+  body[data-page="cart"] .cart-item-total{
+    min-width:auto;
+  }
+
+  body[data-page="cart"] .qty-control{
+    width:82px;
+    min-width:82px;
+
+    height:34px;
+  }
+
+  body[data-page="cart"] .qty-control button{
+    width:28px;
+    height:32px;
+  }
+
+  body[data-page="cart"] .cart-security{
+    justify-content:flex-start;
+  }
+
+  body[data-page="cart"] #cart-summary{
+    padding:19px;
+
+    border-radius:19px;
+  }
+
+}
+
+
+/* =========================================================
+   RESPONSIVE - 480
+========================================================= */
+
+@media(max-width:480px){
+
+  body[data-page="cart"] .site-header .location-chip{
+    display:none !important;
+  }
+
+  body[data-page="cart"] .cart-hero-copy h1{
+    font-size:40px;
+
+    letter-spacing:-2px;
+  }
+
+  body[data-page="cart"] .cart-hero-copy p{
+    font-size:11px;
+  }
+
+  body[data-page="cart"] .cart-mini-art{
+    display:none;
+  }
+
+  body[data-page="cart"] .cart-hero-side{
+    margin-top:17px;
+  }
+
+}
+
+  </style>
+
+</head>
+
+
+<body data-page="cart">
+
+
+<!-- =========================================================
+     HEADER
+========================================================= -->
+
+<header class="site-header">
+
+  <div class="container nav-wrap">
+
+    <a
+      class="brand"
+      href="../index.html">
+
+      <img
+        src="../assets/images/logo-mark.svg"
+        alt="FoodFleet logo">
+
+      <span>
+        Food<span>Fleet</span>
+      </span>
+
+    </a>
+
+
+    <nav class="main-nav">
+
+      <a href="../index.html">
+        Home
+      </a>
+
+      <a href="restaurants.html">
+        Restaurants
+      </a>
+
+      <a href="orders.html">
+        My Orders
+      </a>
+
+    </nav>
+
+
+    <div class="nav-actions">
+
+      <button
+        class="location-chip"
+        data-location-btn
+        type="button"
+        aria-label="Change location">
+
+        📍
+
+        <span data-city>
+          Dhaka Division
+        </span>
+
+      </button>
+
+
+      <a
+        class="icon-link"
+        href="cart.html"
+        aria-label="Cart">
+
+        🛒
+
+        <span
+          class="cart-badge"
+          data-cart-count>
+          0
+        </span>
+
+      </a>
+
+
+      <a
+        class="avatar-link"
+        href="profile.html"
+        data-profile-link>
+
+        SB
+
+      </a>
+
+
+      <button
+        class="mobile-menu-btn"
+        data-mobile-menu
+        type="button"
+        aria-label="Open menu">
+
+        ☰
+
+      </button>
+
+    </div>
+
+  </div>
+
+</header>
+
+
+<!-- =========================================================
+     MAIN
+========================================================= -->
+
+<main>
+
+
+  <!-- =======================================================
+       HERO
+  ======================================================== -->
+
+  <section class="cart-hero">
+
+    <div class="container cart-hero-inner">
+
+      <div class="cart-hero-copy">
+
+        <div class="eyebrow">
+          YOUR BASKET
+        </div>
+
+        <h1>
+          Ready when <span>you are.</span>
+        </h1>
+
+        <p>
+          Review your delicious picks,
+          adjust your basket and send your
+          order into the FoodFleet.
+        </p>
+
+      </div>
+
+
+      <div class="cart-hero-side">
+
+        <div class="cart-mini-art">
+
+          <div class="cart-mini-card">
+            🛒
+          </div>
+
+          <div class="cart-mini-card">
+            🍴
+          </div>
+
+          <div class="cart-mini-card">
+            ❤️
+          </div>
+
+        </div>
+
+
+        <a
+          href="restaurants.html"
+          class="cart-continue">
+
+          <span>
+            ←
+          </span>
+
+          Continue shopping
+
+        </a>
+
+      </div>
+
+    </div>
+
+  </section>
+
+
+  <!-- =======================================================
+       CART CONTENT
+  ======================================================== -->
+
+  <section class="cart-section">
+
+    <div class="container">
+
+      <div class="cart-layout">
+
+
+        <!-- LEFT -->
+
+        <div class="cart-left">
+
+          <div class="cart-section-heading">
+
+            <div class="eyebrow">
+              ORDER ITEMS
+            </div>
+
+            <h2>
+              Your cart
+            </h2>
+
+          </div>
+
+
+          <div
+            id="cart-items"
+            class="cart-list">
+          </div>
+
+
+          <div class="cart-security">
+
+            <span>
+              🔒
+            </span>
+
+            Your cart is stored securely
+            in this browser.
+
+          </div>
+
+        </div>
+
+
+        <!-- RIGHT -->
+
+        <aside
+          id="cart-summary"
+          class="summary-card">
+        </aside>
+
+
+      </div>
+
+
+      <!-- =====================================================
+           BENEFITS
+      ====================================================== -->
+
+      <div class="cart-benefits">
+
+
+        <div class="cart-benefit">
+
+          <div class="cart-benefit-icon">
+            🛵
+          </div>
+
+          <div>
+
+            <strong>
+              Fast delivery
+            </strong>
+
+            <span>
+              Local FoodFleet riders
+            </span>
+
+          </div>
+
+        </div>
+
+
+        <div class="cart-benefit">
+
+          <div class="cart-benefit-icon">
+            💳
+          </div>
+
+          <div>
+
+            <strong>
+              Easy payment
+            </strong>
+
+            <span>
+              Cash on delivery available
+            </span>
+
+          </div>
+
+        </div>
+
+
+        <div class="cart-benefit">
+
+          <div class="cart-benefit-icon">
+            📍
+          </div>
+
+          <div>
+
+            <strong>
+              Live order
+            </strong>
+
+            <span>
+              Track your order anytime
+            </span>
+
+          </div>
+
+        </div>
+
+
+      </div>
+
+    </div>
+
+  </section>
+
+</main>
+
+
+<!-- =========================================================
+     FOOTER
+========================================================= -->
+
+<footer class="footer">
+
+  <div class="footer-grid">
+
+
+    <div>
+
+      <a
+        class="brand footer-brand"
+        href="../index.html">
+
+        <img
+          src="../assets/images/logo-mark.svg"
+          alt="FoodFleet">
+
+        <span>
+          Food<span>Fleet</span>
+        </span>
+
+      </a>
+
+
+      <p>
+        Your neighborhood food,
+        <br>
+        delivered with care.
+      </p>
+
+    </div>
+
+
+    <div>
+
+      <h4>
+        FoodFleet
+      </h4>
+
+      <a href="restaurants.html">
+        Restaurants
+      </a>
+
+      <a href="orders.html">
+        Orders
+      </a>
+
+      <a href="cart.html">
+        Cart
+      </a>
+
+    </div>
+
+
+    <div>
+
+      <h4>
+        Help
+      </h4>
+
+      <a href="#">
+        Support
+      </a>
+
+      <a href="#">
+        Delivery Info
+      </a>
+
+      <a href="#">
+        Terms
+      </a>
+
+    </div>
+
+
+    <div>
+
+      <h4>
+        We deliver in
+      </h4>
+
+      <p>
+        Dhaka<br>
+        Chattogram<br>
+        Sylhet<br>
+        Rajshahi<br>
+        Khulna
+      </p>
+
+    </div>
+
+
+  </div>
+
+
+  <div class="footer-bottom">
+
+    <span>
+      © 2026 FoodFleet. Demo project.
+    </span>
+
+    <span>
+      Made for Bangladesh 🇧🇩
+    </span>
+
+  </div>
+
+</footer>
+
+
+<!-- =========================================================
+     TOAST
+========================================================= -->
+
+<div
+  id="toast-root"
+  class="toast-root">
+</div>
+
+
+<!-- =========================================================
+     AI
+========================================================= -->
+
+<div id="ai-root"></div>
+
+
+<!-- =========================================================
+     SCRIPTS
+========================================================= -->
+
+<script src="../js/data.js"></script>
+
+<script src="../js/app.js"></script>
+
+<script src="../js/cart.js"></script>
+
+<script src="../js/ai.js"></script>
+
+
+</body>
+
+</html>
